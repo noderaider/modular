@@ -1,5 +1,5 @@
 {
-  "name": "create-css-module",
+  "name": "create-react-package",
   "version": "0.1.0",
   "description": "Unofficial companion to create-react-app.",
   "main": "lib/index.js",
@@ -40,7 +40,7 @@
   "bugs": {
     "url": "https://github.com/noderaider/scaffold/issues"
   },
-  "homepage": "https://noderaider.js.org/create-css-module",
+  "homepage": "https://noderaider.js.org/create-react-package",
   "license": "MIT",
   "repository": {
     "type": "git",
