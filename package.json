@@ -1,0 +1,23 @@
+{
+  "scripts": {
+    "build-config": "lerna run --scope @raider/config build",
+    "build": "lerna run build-prod",
+    "configure-classic": "lerna run --ignore @raider/config configure-classic",
+    "configure-dev": "lerna run --ignore @raider/config configure-dev",
+    "configure-test": "lerna run --ignore @raider/config configure-test",
+    "configure-web13": "lerna run --ignore @raider/config configure-web13",
+    "configure-web14": "lerna run --ignore @raider/config configure-web14",
+    "start-hot": "lerna run --ignore @raider/config start-hot",
+    "run-hot": "lerna run --ignore @raider/config run-hot",
+    "restart": "lerna run --ignore @raider/config restart",
+    "start": "lerna run --ignore @raider/config start",
+    "test": "lerna run --ignore @raider/config test",
+    "release": "lerna publish --force-publish=*"
+  },
+  "dependencies": {
+    "sinon": "latest"
+  },
+  "devDependencies": {
+    "lerna": "2.0.0-beta.30"
+  }
+}
