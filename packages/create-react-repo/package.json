@@ -23,6 +23,9 @@
     "release": "npm version patch && npm publish"
   },
   "dependencies": {
+    "create-react-app": "latest",
+    "create-react-package": "^0.1.0",
+    "create-css-module": "^0.1.0",
     "bunyan": "^1.8.3",
     "chai": "^3.5.0",
     "npm-run-all": "^3.1.1",
