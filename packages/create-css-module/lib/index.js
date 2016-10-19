@@ -3,5 +3,5 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-exports.default = function () {};
+exports.default = createCssModule;
+function createCssModule() {}
