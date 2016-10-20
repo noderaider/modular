@@ -2,34 +2,27 @@
   "folders":
   [
     {
-      "folder_exclude_patterns":
-      [
-        "node_modules"
-      ],
+      "folder_exclude_patterns": [ "node_modules" ],
+      "name": "bin-utils",
+      "path": "../packages/bin-utils"
+    },
+    {
+      "folder_exclude_patterns": [ "node_modules" ],
       "name": "create-react-repo",
       "path": "../packages/create-react-repo"
     },
     {
-      "folder_exclude_patterns":
-      [
-        "node_modules"
-      ],
+      "folder_exclude_patterns": [ "node_modules" ],
       "name": "create-react-package",
       "path": "../packages/create-react-package"
     },
     {
-      "folder_exclude_patterns":
-      [
-        "node_modules"
-      ],
+      "folder_exclude_patterns": [ "node_modules" ],
       "name": "create-css-module",
       "path": "../packages/create-css-module"
     },
     {
-      "folder_exclude_patterns":
-      [
-        "node_modules"
-      ],
+      "folder_exclude_patterns": [ "node_modules" ],
       "name": "noderaider/scaffold",
       "path": "../"
     }
