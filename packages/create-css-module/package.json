@@ -2,12 +2,12 @@
   "name": "create-css-module",
   "version": "0.2.2",
   "description": "Unofficial companion to create-react-app.",
-  "main": "lib/index.js",
   "files": [
-    "lib",
-    "src",
-    "README.md"
+    "index.js"
   ],
+  "bin": {
+    "create-css-module": "./index.js"
+  },
   "keywords": [
     "create-react-app",
     "scaffold",
@@ -15,29 +15,15 @@
     "modules",
     "packages"
   ],
-  "scripts": {
-    "prebuild": "rimraf lib",
-    "build": "babel src -d . --ignore __tests__,__mocks__",
-    "test": "jest",
-    "prerelease": "run-s build test",
-    "release": "npm version patch && npm publish"
-  },
   "dependencies": {
     "create-package": "^0.2.2"
-  },
-  "devDependencies": {
-    "babel-cli": "latest",
-    "babel-preset-latest": "latest",
-    "babel-preset-stage-2": "latest",
-    "jest": "latest",
-    "rimraf": "latest"
   },
   "author": "Cole Chamberlain <cole.chamberlain@gmail.com> (https://github.com/cchamberlain)",
   "bugs": {
     "url": "https://github.com/noderaider/scaffold/issues"
   },
   "homepage": "https://noderaider.js.org/create-css-module",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/noderaider/scaffold.git"

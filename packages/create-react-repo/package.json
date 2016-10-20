@@ -2,25 +2,11 @@
   "name": "create-react-repo",
   "version": "0.2.2",
   "description": "Unofficial companion to create-react-app.",
-  "main": "lib/index.js",
   "files": [
-    "lib",
-    "src",
-    "README.md"
+    "index.js"
   ],
-  "keywords": [
-    "create-react-app",
-    "scaffold",
-    "css",
-    "modules",
-    "packages"
-  ],
-  "scripts": {
-    "prebuild": "rimraf lib",
-    "build": "babel src -d . --ignore __tests__,__mocks__",
-    "test": "jest",
-    "prerelease": "run-s build test",
-    "release": "npm version patch && npm publish"
+  "bin": {
+    "create-react-package": "./index.js"
   },
   "dependencies": {
     "create-package": "^0.2.2"
@@ -37,7 +23,7 @@
     "url": "https://github.com/noderaider/scaffold/issues"
   },
   "homepage": "https://noderaider.js.org/create-react-repo",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/noderaider/scaffold.git"

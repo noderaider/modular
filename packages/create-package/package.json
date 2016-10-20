@@ -41,7 +41,7 @@
     "url": "https://github.com/noderaider/scaffold/issues"
   },
   "homepage": "https://noderaider.js.org/create-package",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/noderaider/scaffold.git"

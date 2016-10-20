@@ -7,7 +7,34 @@ import minimist from 'minimist'
 import pathExists from 'path-exists'
 const argv = minimist(process.argv.slice(2))
 
-export default function createPackage(name, verbose, version) {
+
+export default function createPackage(scriptName, scriptVersion) {
+  if(!scriptName)
+    throw new Error('Must supply a scriptName argument.')
+  if(!scriptVersion)
+    throw new Error('Must supply a scriptVersion argument.')
+  /**
+   * Arguments:
+   *   --version - to print current version
+   *   --verbose - to print logs while init
+   *   --bin-utils-version <alternative package>
+   *     Example of valid values:
+   *     - a specific npm version: "0.22.0-rc1"
+   *     - a .tgz archive from any npm repo: "https://registry.npmjs.org/react-scripts/-/react-scripts-0.20.0.tgz"
+   */
+  const [ name ] = argv._
+  if (!name) {
+    if (argv.version) {
+      console.log(`${scriptName} version: ${version}`)
+      process.exit()
+    }
+    console.error(`Usage: ${scriptName} <project-directory> [--verbose]`)
+    process.exit(1)
+  }
+  return _createPackage(name, argv.verbose, argv['bin-utils-version'])
+}
+
+function _createPackage(name, verbose, version) {
   var root = path.resolve(name)
   var packageName = path.basename(root)
 
