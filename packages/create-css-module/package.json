@@ -23,18 +23,18 @@
     "release": "npm version patch && npm publish"
   },
   "dependencies": {
-    "bunyan": "^1.8.3",
-    "chai": "^3.5.0",
-    "npm-run-all": "^3.1.1",
-    "yargs": "^6.2.0"
+    "bunyan": "latest",
+    "ncp": "latest",
+    "npm-run-all": "latest",
+    "rimraf": "latest",
+    "simple-git": "latest",
+    "yargs": "latest"
   },
   "devDependencies": {
-    "babel-cli": "^6.16.0",
-    "babel-preset-latest": "^6.16.0",
-    "babel-preset-stage-2": "^6.17.0",
-    "jest": "^16.0.1",
-    "ncp": "^2.0.0",
-    "rimraf": "^2.5.4"
+    "babel-cli": "latest",
+    "babel-preset-latest": "latest",
+    "babel-preset-stage-2": "latest",
+    "jest": "latest"
   },
   "author": "Cole Chamberlain <cole.chamberlain@gmail.com> (https://github.com/cchamberlain)",
   "bugs": {
