@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "bunyan": "latest",
+    "mkdirp": "latest",
     "ncp": "latest",
     "npm-run-all": "latest",
     "rimraf": "latest",

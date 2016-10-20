@@ -28,6 +28,7 @@
     "create-react-app": "latest",
     "create-react-package": "^0.1.1",
     "lerna": "prerelease",
+    "mkdirp": "latest",
     "ncp": "latest",
     "npm-run-all": "latest",
     "rimraf": "latest",
