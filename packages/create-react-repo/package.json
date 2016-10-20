@@ -1,6 +1,6 @@
 {
   "name": "create-react-repo",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Unofficial companion to create-react-app.",
   "main": "lib/index.js",
   "files": [
@@ -23,10 +23,10 @@
     "release": "npm version patch && npm publish"
   },
   "dependencies": {
-    "bin-utils": "^0.1.2",
-    "create-css-module": "^0.1.2",
+    "bin-utils": "^0.2.0",
+    "create-css-module": "^0.2.0",
     "create-react-app": "latest",
-    "create-react-package": "^0.1.2",
+    "create-react-package": "^0.2.0",
     "lerna": "prerelease",
     "bunyan": "latest",
     "npm-run-all": "latest",
