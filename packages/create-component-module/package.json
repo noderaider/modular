@@ -1,12 +1,12 @@
 {
-  "name": "create-react-package",
+  "name": "create-component-module",
   "version": "0.2.3",
   "description": "Unofficial companion to create-react-app.",
   "files": [
     "index.js"
   ],
   "bin": {
-    "create-react-package": "./index.js"
+    "create-component-module": "./index.js"
   },
   "keywords": [
     "create-react-app",
@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/noderaider/scaffold/issues"
   },
-  "homepage": "https://noderaider.js.org/create-react-package",
+  "homepage": "https://noderaider.js.org/create-component-module",
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",

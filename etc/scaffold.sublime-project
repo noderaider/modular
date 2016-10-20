@@ -18,8 +18,8 @@
     },
     {
       "folder_exclude_patterns": [ "node_modules" ],
-      "name": "create-react-package",
-      "path": "../packages/create-react-package"
+      "name": "create-component-module",
+      "path": "../packages/create-component-module"
     },
     {
       "folder_exclude_patterns": [ "node_modules" ],
