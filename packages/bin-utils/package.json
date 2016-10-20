@@ -1,5 +1,5 @@
 {
-  "name": "create-react-package",
+  "name": "bin-utils",
   "version": "0.1.2",
   "description": "Unofficial companion to create-react-app.",
   "main": "lib/index.js",
@@ -23,24 +23,23 @@
     "release": "npm version patch && npm publish"
   },
   "dependencies": {
-    "bin-utils": "^0.1.2",
     "bunyan": "latest",
-    "npm-run-all": "latest",
-    "simple-git": "latest",
-    "yargs": "latest"
+    "mkdirp": "latest",
+    "ncp": "latest",
+    "rimraf": "latest",
+    "simple-git": "latest"
   },
   "devDependencies": {
     "babel-cli": "latest",
     "babel-preset-latest": "latest",
     "babel-preset-stage-2": "latest",
-    "jest": "latest",
-    "rimraf": "latest"
+    "jest": "latest"
   },
   "author": "Cole Chamberlain <cole.chamberlain@gmail.com> (https://github.com/cchamberlain)",
   "bugs": {
     "url": "https://github.com/noderaider/scaffold/issues"
   },
-  "homepage": "https://noderaider.js.org/create-react-package",
+  "homepage": "https://noderaider.js.org/bin-utils",
   "license": "MIT",
   "repository": {
     "type": "git",

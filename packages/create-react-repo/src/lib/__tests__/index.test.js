@@ -6,6 +6,8 @@ describe('create-react-repo', () => {
   })
   beforeEach(() => {
 
+    ncp ('')
+
   })
   it('creates')
 })
