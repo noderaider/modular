@@ -1,11 +1,11 @@
-# create-css-module
+# bin-utils
 
-**Unofficial counterpart to create-react-app to allow quick scaffolding of CSS module packages.**
+**Collection of promisified bin utilities for creating cli components.**
 
-[![NPM](https://nodei.co/npm/create-css-module.png?stars=true&downloads=true)](https://nodei.co/npm/create-css-module/)
+[![NPM](https://nodei.co/npm/bin-utils.png?stars=true&downloads=true)](https://nodei.co/npm/bin-utils/)
 
 ## Install
 
-`npm i -S create-css-module`
+`npm i -S bin-utils`
 
 ## In active development, review the unit tests until documentation is added.

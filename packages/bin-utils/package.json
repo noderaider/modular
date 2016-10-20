@@ -1,7 +1,7 @@
 {
   "name": "bin-utils",
   "version": "0.1.2",
-  "description": "Unofficial companion to create-react-app.",
+  "description": "Collection of promisified bin utilities for creating cli components.",
   "main": "lib/index.js",
   "files": [
     "lib",
@@ -9,11 +9,12 @@
     "README.md"
   ],
   "keywords": [
-    "create-react-app",
     "scaffold",
-    "css",
     "modules",
-    "packages"
+    "packages",
+    "rimraf",
+    "mkdirp",
+    "ncp"
   ],
   "scripts": {
     "prebuild": "rimraf lib",
@@ -23,6 +24,7 @@
     "release": "npm version patch && npm publish"
   },
   "dependencies": {
+    "bluebird": "latest",
     "bunyan": "latest",
     "mkdirp": "latest",
     "ncp": "latest",
