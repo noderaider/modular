@@ -8,33 +8,32 @@ import pathExists from 'path-exists'
 const argv = minimist(process.argv.slice(2))
 
 
-export default function createPackage(scriptName, scriptVersion) {
-  if(!scriptName)
-    throw new Error('Must supply a scriptName argument.')
-  if(!scriptVersion)
-    throw new Error('Must supply a scriptVersion argument.')
+export default function createPackage(packageJSON) {
+  if(!packageJSON)
+    throw new Error('packageJSON must exist.')
+  if(!packageJSON.name)
+    throw new Error('packageJSON must have a name.')
+  if(!packageJSON.version)
+    throw new Error('packageJSON must have a version.')
   /**
    * Arguments:
    *   --version - to print current version
    *   --verbose - to print logs while init
    *   --bin-utils-version <alternative package>
-   *     Example of valid values:
-   *     - a specific npm version: "0.22.0-rc1"
-   *     - a .tgz archive from any npm repo: "https://registry.npmjs.org/react-scripts/-/react-scripts-0.20.0.tgz"
    */
   const [ name ] = argv._
   if (!name) {
     if (argv.version) {
-      console.log(`${scriptName} version: ${version}`)
+      console.log(`${JSON.stringify(packageJSON, null, 2)}`)
       process.exit()
     }
-    console.error(`Usage: ${scriptName} <project-directory> [--verbose]`)
+    console.error(`Usage: ${packageJSON.name} <project-directory> [--verbose]`)
     process.exit(1)
   }
-  return _createPackage(name, argv.verbose, argv['bin-utils-version'])
+  return createModule(name, argv.verbose, argv['bin-utils-version'])
 }
 
-function _createPackage(name, verbose, version) {
+function createModule(name, verbose, version) {
   var root = path.resolve(name)
   var packageName = path.basename(root)
 

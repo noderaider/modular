@@ -1,0 +1,31 @@
+{
+  "name": "create-koa-module",
+  "version": "0.2.4",
+  "description": "Unofficial companion to create-react-app.",
+  "files": [
+    "index.js"
+  ],
+  "bin": {
+    "create-koa-module": "./index.js"
+  },
+  "keywords": [
+    "create-react-app",
+    "scaffold",
+    "css",
+    "modules",
+    "packages"
+  ],
+  "dependencies": {
+    "create-package": "^0.2.4"
+  },
+  "author": "Cole Chamberlain <cole.chamberlain@gmail.com> (https://github.com/cchamberlain)",
+  "bugs": {
+    "url": "https://github.com/noderaider/scaffold/issues"
+  },
+  "homepage": "https://noderaider.js.org/create-koa-module",
+  "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noderaider/scaffold.git"
+  }
+}
