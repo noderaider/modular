@@ -23,11 +23,7 @@
     "release": "npm version patch && npm publish"
   },
   "dependencies": {
-    "bin-utils": "^0.2.1",
-    "bunyan": "latest",
-    "npm-run-all": "latest",
-    "simple-git": "latest",
-    "yargs": "latest"
+    "create-package": "^0.2.1"
   },
   "devDependencies": {
     "babel-cli": "latest",

@@ -8,6 +8,11 @@
     },
     {
       "folder_exclude_patterns": [ "node_modules" ],
+      "name": "create-package",
+      "path": "../packages/create-package"
+    },
+    {
+      "folder_exclude_patterns": [ "node_modules" ],
       "name": "create-react-repo",
       "path": "../packages/create-react-repo"
     },
@@ -25,6 +30,11 @@
       "folder_exclude_patterns": [ "node_modules" ],
       "name": "noderaider/scaffold",
       "path": "../"
+    },
+    {
+      "folder_exclude_patterns": [ "node_modules" ],
+      "name": "create-react-app",
+      "path": "../../create-react-app"
     }
   ]
 }

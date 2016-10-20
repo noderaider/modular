@@ -1,53 +1,46 @@
 {
-  "name": "bin-utils",
+  "name": "create-package",
   "version": "0.2.1",
-  "description": "Collection of promisified bin utilities for creating cli components.",
+  "description": "Unofficial companion to create-react-app.",
   "main": "lib/index.js",
   "files": [
-    ".babelrc",
-    "bin",
     "lib",
     "README.md"
   ],
+  "engines": {
+    "node": ">=4"
+  },
   "keywords": [
+    "create-react-app",
     "scaffold",
-    "modules",
-    "packages",
-    "rimraf",
-    "mkdirp",
-    "ncp"
+    "packages"
   ],
   "scripts": {
     "prebuild": "rimraf lib",
     "build": "babel src -d . --ignore __tests__,__mocks__",
     "test": "jest",
-    "prerelease": "run-s build test",
+    "prerelease": "npm run build && npm run test",
     "release": "npm version patch && npm publish"
   },
   "dependencies": {
+    "chalk": "^1.1.1",
+    "cross-spawn": "^4.0.0",
+    "minimist": "^1.2.0",
+    "path-exists": "^2.1.0",
+    "semver": "^5.0.3"
+  },
+  "devDependencies": {
     "babel-cli": "latest",
     "babel-preset-latest": "latest",
     "babel-preset-stage-2": "latest",
-    "bluebird": "latest",
-    "bunyan": "latest",
-    "deasync": "latest",
-    "graceful-fs": "latest",
-    "isomorphic-fetch": "latest",
     "jest": "latest",
-    "lerna": "prerelease",
-    "mkdirp": "latest",
-    "ncp": "latest",
-    "npm-run-all": "latest",
-    "rimraf": "latest",
-    "signal-exit": "latest",
-    "simple-git": "latest",
-    "yargs": "latest"
+    "rimraf": "latest"
   },
   "author": "Cole Chamberlain <cole.chamberlain@gmail.com> (https://github.com/cchamberlain)",
   "bugs": {
     "url": "https://github.com/noderaider/scaffold/issues"
   },
-  "homepage": "https://noderaider.js.org/bin-utils",
+  "homepage": "https://noderaider.js.org/create-package",
   "license": "MIT",
   "repository": {
     "type": "git",
