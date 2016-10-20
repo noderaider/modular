@@ -28,6 +28,11 @@
     },
     {
       "folder_exclude_patterns": [ "node_modules" ],
+      "name": "create-sass-module",
+      "path": "../packages/create-sass-module"
+    },
+    {
+      "folder_exclude_patterns": [ "node_modules" ],
       "name": "noderaider/scaffold",
       "path": "../"
     },
