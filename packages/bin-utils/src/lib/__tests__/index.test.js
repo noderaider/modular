@@ -13,4 +13,7 @@ describe('bin-utils', () => {
   it('should have ncp', () => {
     expect(typeof binUtils.ncp).toBe('function')
   })
+  it('should have stat', () => {
+    expect(typeof binUtils.stat).toBe('function')
+  })
 })

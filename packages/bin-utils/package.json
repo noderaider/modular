@@ -26,9 +26,12 @@
   "dependencies": {
     "bluebird": "latest",
     "bunyan": "latest",
+    "graceful-fs": "^4.1.9",
+    "lerna": "^1.1.3",
     "mkdirp": "latest",
     "ncp": "latest",
     "rimraf": "latest",
+    "signal-exit": "^3.0.1",
     "simple-git": "latest"
   },
   "devDependencies": {
