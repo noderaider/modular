@@ -32,6 +32,6 @@
     "eslint-plugin-babel": "latest",
     "eslint-plugin-react": "latest",
     "npm-run-all": "latest",
-    "rewire": "latest",
+    "rewire": "latest"
   }
 }
