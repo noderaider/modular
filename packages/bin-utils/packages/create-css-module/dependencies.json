@@ -1,0 +1,11 @@
+{ "chai": "latest"
+, "classnames": "latest"
+, "isomorphic-style-loader": "^1.0.0"
+, "json-loader": "^0.5.4"
+, "ncp": "latest"
+, "npm-run-all": "latest"
+, "react-stamp": "latest"
+, "solvent": "^0.16.1"
+, "universal-style-loader": "^0.16.1"
+, "universal-styles": "^0.16.1"
+}

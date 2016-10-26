@@ -15,7 +15,7 @@ import spawn from 'cross-spawn'
 import pathExists from 'path-exists'
 import chalk from 'chalk'
 
-export default function createInit(opts = {}) {
+export default function createInit({ dependencies, devDependencies } = {}) {
   return function init (appPath, appName, verbose, originalDirectory) {
     const ownPackageName = require(path.join(__dirname, '..', 'package.json')).name
     const ownPath = path.join(appPath, 'node_modules', ownPackageName)
@@ -61,6 +61,7 @@ export default function createInit(opts = {}) {
       }
     })
 
+/*
     // Run another npm install for react and react-dom
     console.log('Installing react and react-dom from npm...')
     console.log()
@@ -78,6 +79,7 @@ export default function createInit(opts = {}) {
         console.error('`npm ' + args.join(' ') + '` failed')
         return
       }
+      */
 
       // Display the most elegant way to cd.
       // This needs to handle an undefined originalDirectory for
@@ -111,6 +113,6 @@ export default function createInit(opts = {}) {
       }
       console.log()
       console.log('Happy hacking!')
-    })
+    //})
   }
 }

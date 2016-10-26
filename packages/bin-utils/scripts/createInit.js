@@ -28,7 +28,9 @@ var _chalk2 = _interopRequireDefault(_chalk);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function createInit() {
-  var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      dependencies = _ref.dependencies,
+      devDependencies = _ref.devDependencies;
 
   return function init(appPath, appName, verbose, originalDirectory) {
     var ownPackageName = require(_path2.default.join(__dirname, '..', 'package.json')).name;
@@ -69,53 +71,59 @@ function createInit() {
       }
     });
 
-    // Run another npm install for react and react-dom
-    console.log('Installing react and react-dom from npm...');
+    /*
+        // Run another npm install for react and react-dom
+        console.log('Installing react and react-dom from npm...')
+        console.log()
+        // TODO: having to do two npm installs is bad, can we avoid it?
+        var args = [
+          'install'
+        , 'react'
+        , 'react-dom'
+        , '--save'
+        , verbose && '--verbose'
+        ].filter((x) => x)
+        var proc = spawn('npm', args, { stdio: 'inherit' })
+        proc.on('close', (code) => {
+          if (code !== 0) {
+            console.error('`npm ' + args.join(' ') + '` failed')
+            return
+          }
+          */
+
+    // Display the most elegant way to cd.
+    // This needs to handle an undefined originalDirectory for
+    // backward compatibility with old global-cli's.
+    var cdpath = originalDirectory && _path2.default.join(originalDirectory, appName) === appPath ? appName : appPath;
+
     console.log();
-    // TODO: having to do two npm installs is bad, can we avoid it?
-    var args = ['install', 'react', 'react-dom', '--save', verbose && '--verbose'].filter(function (x) {
-      return x;
-    });
-    var proc = (0, _crossSpawn2.default)('npm', args, { stdio: 'inherit' });
-    proc.on('close', function (code) {
-      if (code !== 0) {
-        console.error('`npm ' + args.join(' ') + '` failed');
-        return;
-      }
-
-      // Display the most elegant way to cd.
-      // This needs to handle an undefined originalDirectory for
-      // backward compatibility with old global-cli's.
-      var cdpath = originalDirectory && _path2.default.join(originalDirectory, appName) === appPath ? appName : appPath;
-
+    console.log('Success! Created ' + appName + ' at ' + appPath);
+    console.log('Inside that directory, you can run several commands:');
+    console.log();
+    console.log(_chalk2.default.cyan('  npm start'));
+    console.log('    Starts the development server.');
+    console.log();
+    console.log(_chalk2.default.cyan('  npm run build'));
+    console.log('    Bundles the app into static files for production.');
+    console.log();
+    console.log(_chalk2.default.cyan('  npm test'));
+    console.log('    Starts the test runner.');
+    console.log();
+    console.log(_chalk2.default.cyan('  npm run eject'));
+    console.log('    Removes this tool and copies build dependencies, configuration files');
+    console.log('    and scripts into the app directory. If you do this, you can’t go back!');
+    console.log();
+    console.log('We suggest that you begin by typing:');
+    console.log();
+    console.log(_chalk2.default.cyan('  cd'), cdpath);
+    console.log('  ' + _chalk2.default.cyan('npm start'));
+    if (readmeExists) {
       console.log();
-      console.log('Success! Created ' + appName + ' at ' + appPath);
-      console.log('Inside that directory, you can run several commands:');
-      console.log();
-      console.log(_chalk2.default.cyan('  npm start'));
-      console.log('    Starts the development server.');
-      console.log();
-      console.log(_chalk2.default.cyan('  npm run build'));
-      console.log('    Bundles the app into static files for production.');
-      console.log();
-      console.log(_chalk2.default.cyan('  npm test'));
-      console.log('    Starts the test runner.');
-      console.log();
-      console.log(_chalk2.default.cyan('  npm run eject'));
-      console.log('    Removes this tool and copies build dependencies, configuration files');
-      console.log('    and scripts into the app directory. If you do this, you can’t go back!');
-      console.log();
-      console.log('We suggest that you begin by typing:');
-      console.log();
-      console.log(_chalk2.default.cyan('  cd'), cdpath);
-      console.log('  ' + _chalk2.default.cyan('npm start'));
-      if (readmeExists) {
-        console.log();
-        console.log(_chalk2.default.yellow('You had a `README.md` file, we renamed it to `README.old.md`'));
-      }
-      console.log();
-      console.log('Happy hacking!');
-    });
+      console.log(_chalk2.default.yellow('You had a `README.md` file, we renamed it to `README.old.md`'));
+    }
+    console.log();
+    console.log('Happy hacking!');
+    //})
   };
 } /**
    * Copyright (c) 2015-present, Facebook, Inc.

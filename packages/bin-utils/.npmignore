@@ -1,10 +1,7 @@
 # Source files
 /vagrant/
 
-.babelrc
-.eslintrc
 .gitattributes
-.gitignore
 
 .idea/
 .vscode/

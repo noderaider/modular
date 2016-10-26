@@ -23,8 +23,6 @@ export default function createPackage(packageJSON) {
       const argv = yargs
         .usage(`Usage: ${templateName} <project-directory> [options]\nversion: ${templateVersion}`)
         .describe('verbose', 'Print a lot of information.')
-        .describe('version', 'Print the current bin utils version.')
-        .alias('v', 'version')
         .help('h')
         .alias('h', 'help')
         .demand(1)
@@ -37,15 +35,11 @@ export default function createPackage(packageJSON) {
       argv.showHelp()
       process.exit(1)
     }
-    if (opts.version) {
-      argv.showHelp('info')
-      process.exit()
-    }
     return createModule(templateName, name, opts)
   }
 }
 
-function createModule(templateName, name, { verbose, version } = {}) {
+function createModule(templateName, name, { verbose, version = '*' } = {}) {
   var root = path.resolve(name)
   var packageName = path.basename(root)
 
@@ -58,30 +52,61 @@ function createModule(templateName, name, { verbose, version } = {}) {
     process.exit(1)
   }
 
-  console.log(`Creating a new package in ${root}.\n`)
+  const devDependencies = { 'bin-utils': version }
 
   const packageJson = (
     { name: packageName
     , version: '0.1.0'
     , private: true
+    , devDependencies
     }
   )
+  const packageJsonStr = JSON.stringify(packageJson, null, 2)
+  console.log(`Creating a new package in ${root}.\n--package.json--\n`, packageJsonStr)
   fs.writeFileSync (
     path.join(root, 'package.json')
-  , JSON.stringify(packageJson, null, 2)
+  , packageJsonStr
   )
   var originalDirectory = process.cwd()
   process.chdir(root)
 
-  run(root, packageName, templateName, version, verbose, originalDirectory)
+  run(root, packageName, templateName, version, verbose, originalDirectory, packageJson)
+
 }
 
-function run(root, packageName, templateName, version, verbose, originalDirectory) {
+
+
+function install(useYarn, message, cb) {
+  try {
+    console.log(message)
+    const executable = useYarn ? 'yarn' : 'npm'
+    const args = (useYarn ? [] : [ 'install', verbose ? '--verbose' : '--silent' ]).filter((e) => { return e })
+    spawn(
+      executable
+    , args
+    , { stdio: 'inherit' }
+    ).on('close', (code, ...args) => {
+      if (code !== 0) {
+        console.error(`${executable} ${args.join(' ')} failed with ${code}:\n${args.join('\n')}`)
+        process.exit(1)
+      }
+      cb()
+    })
+  } catch(err) {
+    cb(err)
+  }
+}
+
+
+
+
+function run(root, packageName, templateName, version, verbose, originalDirectory, packageJson) {
   const installPackage = getInstallPackage(version)
   const utilsName = getUtilsName(installPackage)
 
   console.log('Installing packages. This might take a couple minutes...')
   detectInPath('yarn', (useYarn) => {
+    /*
     console.log(useYarn ? `${chalk.bold.green('--yarn detected--')} | installing bin-utils at velocity c | ${chalk.blue('(negligible error due to medium)')}` : `${chalk.bold.yellow('--yarn not detected--')} | installing bin-utils with npm\n\t${chalk.bold.yellow('install yarn globally with `npm i -g yarn@latest` for a faster experience')}`)
     const executable = useYarn ? 'yarn' : 'npm'
     const args = (useYarn ? [ 'add'
@@ -103,25 +128,71 @@ function run(root, packageName, templateName, version, verbose, originalDirector
         console.error(`${executable} ${args.join(' ')} failed with ${code}:\n${args.join('\n')}`)
         process.exit(1)
       }
+      */
+    install(useYarn, useYarn ? `${chalk.bold.green('--yarn detected--')} | installing bin-utils at velocity c | ${chalk.blue('(negligible error due to medium)')}` : `${chalk.bold.yellow('--yarn not detected--')} | installing bin-utils with npm\n\t${chalk.bold.yellow('install yarn globally with `npm i -g yarn@latest` for a faster experience')}`, (err) => {
+      if(err) {
+        console.error(err)
+        process.exit(1)
+      }
 
       checkNodeVersion(utilsName)
 
-      var scriptsPath = path.resolve(
+      var dependenciesPath = path.resolve(
         process.cwd()
       , 'node_modules'
       , utilsName
-      , 'scripts'
+      , 'packages'
       , templateName
-      , 'init.js'
+      , 'dependencies.json'
       )
-      var init = require(scriptsPath).default
-      init(root, packageName, verbose, originalDirectory)
+      var devDependenciesPath = path.resolve(
+        process.cwd()
+      , 'node_modules'
+      , utilsName
+      , 'packages'
+      , templateName
+      , 'devDependencies.json'
+      )
+
+      var dependencies = require(dependenciesPath)
+      var devDependencies = require(devDependenciesPath)
+
+      const _packageJson = (
+        { ...packageJson
+        , dependencies
+        , devDependencies: { ...packageJson.devDependencies, ...devDependencies }
+        }
+      )
+      console.info('ABOUT TO WRITE SECOND FILE', root, '\n', JSON.stringify(dependencies, null, 2), '\n', JSON.stringify(devDependencies, null, 2))
+      fs.writeFileSync (
+        path.join(root, 'package.json')
+      , JSON.stringify(_packageJson, null, 2)
+      )
+      install(useYarn, `installing additional ${templateName} dependencies...`, (err) => {
+        if(err) {
+          console.error(err)
+          process.exit(1)
+        }
+
+        var scriptsPath = path.resolve(
+          process.cwd()
+        , 'node_modules'
+        , utilsName
+        , 'scripts'
+        , templateName
+        , 'init.js'
+        )
+        var init = require(scriptsPath).default
+        init(root, packageName, verbose, originalDirectory)
+      })
     })
   })
 }
 
 function getInstallPackage(version) {
   var packageToInstall = 'bin-utils'
+  if(version === '*')
+    return packageToInstall
   var validSemver = semver.valid(version)
   if (validSemver) {
     packageToInstall += '@' + validSemver
