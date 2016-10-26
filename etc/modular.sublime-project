@@ -43,6 +43,11 @@
     },
     {
       "folder_exclude_patterns": [ "node_modules" ],
+      "name": "print-utils",
+      "path": "../../print-utils"
+    },
+    {
+      "folder_exclude_patterns": [ "node_modules" ],
       "name": "react",
       "path": "../../react"
     }
