@@ -23,8 +23,9 @@ export default function install(useYarn, message, cb) {
         } else {
           installFail(code, ...args)
         }
+      } else {
+        cb()
       }
-      cb()
     })
   } catch(err) {
     installFail(1, util.inspect(err))
