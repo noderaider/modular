@@ -6,12 +6,12 @@ function installFail(code, ...args) {
   process.exit(1)
 }
 
-function fallback(cb) {
+function fallback(verbose, cb) {
   console.warn('Error during yarn install, falling back to npm...')
-  install(false, `${chalk.bold.yellow('--yarn error occurred--')} | installing bin-utils with npm (fallback)`, cb)
+  install(false, { message: `${chalk.bold.yellow('--yarn error occurred--')} | installing bin-utils with npm (fallback)`, verbose }, cb)
 }
 
-export default function install(useYarn, message, cb) {
+export default function install(useYarn, { message, verbose } = {}, cb) {
   try {
     console.log(message)
     const executable = useYarn ? 'yarn' : 'npm'
@@ -24,7 +24,7 @@ export default function install(useYarn, message, cb) {
     ).on('close', (code, ...args) => {
       if (code !== 0) {
         if(useYarn) {
-          fallback(cb)
+          fallback(verbose, cb)
         } else {
           installFail(code, ...args)
         }
@@ -34,7 +34,7 @@ export default function install(useYarn, message, cb) {
     })
   } catch(err) {
     if(useYarn) {
-      fallback(cb)
+      fallback(verbose, cb)
     } else {
       installFail(1, util.inspect(err))
     }

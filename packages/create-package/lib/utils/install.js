@@ -24,12 +24,18 @@ function installFail(code) {
   process.exit(1);
 }
 
-function fallback(cb) {
+function fallback(verbose, cb) {
   console.warn('Error during yarn install, falling back to npm...');
-  install(false, chalk.bold.yellow('--yarn error occurred--') + ' | installing bin-utils with npm (fallback)', cb);
+  install(false, { message: chalk.bold.yellow('--yarn error occurred--') + ' | installing bin-utils with npm (fallback)', verbose: verbose }, cb);
 }
 
-function install(useYarn, message, cb) {
+function install(useYarn) {
+  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+      message = _ref.message,
+      verbose = _ref.verbose;
+
+  var cb = arguments[2];
+
   try {
     console.log(message);
     var executable = useYarn ? 'yarn' : 'npm';
@@ -44,7 +50,7 @@ function install(useYarn, message, cb) {
 
       if (code !== 0) {
         if (useYarn) {
-          fallback(cb);
+          fallback(verbose, cb);
         } else {
           installFail.apply(undefined, [code].concat(args));
         }
@@ -54,7 +60,7 @@ function install(useYarn, message, cb) {
     });
   } catch (err) {
     if (useYarn) {
-      fallback(cb);
+      fallback(verbose, cb);
     } else {
       installFail(1, _util2.default.inspect(err));
     }
