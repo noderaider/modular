@@ -1,0 +1,8 @@
+{
+  "name": "test-css",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "bin-utils": "0.2.2"
+  }
+}
