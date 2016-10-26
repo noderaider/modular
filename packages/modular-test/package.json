@@ -1,7 +1,7 @@
 {
-  "name": "@raider/scaffold-test",
+  "name": "@raider/modular-test",
   "version": "0.7.2",
-  "description": "Test project for all the scaffold modules",
+  "description": "Test project for all the @raider/modular packages",
   "dependencies": {
     "bin-utils": "^0.7.2",
     "create-react-repo": "^0.7.2",
@@ -11,6 +11,7 @@
     "create-deploy-module": "^0.7.2",
     "create-express-module": "^0.7.2",
     "create-koa-module": "^0.7.2",
+    "create-cli-module": "^0.7.2",
     "create-package": "^0.7.2",
     "babel-cli": "latest",
     "babel-preset-latest": "latest",

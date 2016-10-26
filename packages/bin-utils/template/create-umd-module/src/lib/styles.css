@@ -1,0 +1,32 @@
+/** mobile  */ @custom-media --mobile only screen and (width < 48em);
+/** desktop */ @custom-media --desktop only screen and (width >= 48em);
+
+/* ===== == = === 20em (320px) === = == ===== */
+@custom-media --xs-screen only screen and (width >= 20em);
+
+/* ===== == = === 30em (480px) === = == ===== */
+@custom-media --sm-screen only screen and (width >= 30em);
+
+/* ===== == = === 37.5em (600px) === = == ===== */
+@custom-media --md-screen only screen and (width >= 37.5em);
+
+/* ===== == = === 48em (768px) === = == ===== */
+@custom-media --lg-screen only screen and (width >= 48em);
+
+/* ===== == = === 56.25em (900px) === = == ===== */
+@custom-media --xl-screen only screen and (width >= 56.25em);
+
+/* ===== == = === 68.75em (1100px) === = == ===== */
+@custom-media --2x-screen only screen and (width >= 68.75em);
+
+/* ===== == = === 81.25em (1300px) === = == ===== */
+@custom-media --3x-screen only screen and (width >= 81.25em);
+
+:root {
+  --shadow: {
+    /* offset-x | offset-y | blur-radius | spread-radius | color */
+    box-shadow: 2px 2px 3px 1px rgb(200, 200, 200);
+  }
+}
+
+/** CSS MODULES READY TO GO */

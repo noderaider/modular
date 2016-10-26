@@ -1,4 +1,10 @@
 import spawn from 'cross-spawn'
+import util from 'util'
+
+function installFail(code, ...args) {
+  console.error(`npm install failed with ${code}:\n${args.join('\n')}`)
+  process.exit(1)
+}
 
 export default function install(useYarn, message, cb) {
   try {
@@ -11,12 +17,16 @@ export default function install(useYarn, message, cb) {
     , { stdio: 'inherit' }
     ).on('close', (code, ...args) => {
       if (code !== 0) {
-        console.error(`${executable} ${args.join(' ')} failed with ${code}:\n${args.join('\n')}`)
-        process.exit(1)
+        if(useYarn) {
+          console.warn('Error during yarn install, falling back to npm...')
+          install(false, `${chalk.bold.yellow('--yarn error occurred--')} | installing bin-utils with npm (fallback)`, cb)
+        } else {
+          installFail(code, ...args)
+        }
       }
       cb()
     })
   } catch(err) {
-    cb(err)
+    installFail(1, util.inspect(err))
   }
 }
