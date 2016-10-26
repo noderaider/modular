@@ -35,6 +35,11 @@
       "folder_exclude_patterns": [ "node_modules" ],
       "name": "create-react-app",
       "path": "../../create-react-app"
+    },
+    {
+      "folder_exclude_patterns": [ "node_modules" ],
+      "name": "react",
+      "path": "../../react"
     }
   ]
 }
