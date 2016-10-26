@@ -5,6 +5,8 @@ import chalk from 'chalk'
 import semver from 'semver'
 import pathExists from 'path-exists'
 import detectInPath from './utils/detectInPath'
+import install from './utils/install'
+import fetch from 'node-fetch'
 import yargs from 'yargs'
 
 export default function createPackage(packageJSON) {
@@ -51,54 +53,30 @@ function createModule(templateName, name, { verbose, version = '*' } = {}) {
     console.log(`The directory ${name} contains file(s) that could conflict. Aborting.`)
     process.exit(1)
   }
+  const templateUrl = `https://raw.githubusercontent.com/noderaider/scaffold/master/packages/bin-utils/packages/${templateName}.json`
+  fetch(templateUrl)
+    .then((res) => res.json())
+    .then((template) => {
+      const packageJson = (
+        { name: packageName
+        , version: '0.1.0'
+        , private: true
+        , ...template
+        }
+      )
+      const packageJsonStr = JSON.stringify(packageJson, null, 2)
+      console.log(`Creating a new package in ${root}.\n--package.json--\n`, packageJsonStr)
+      fs.writeFileSync (
+        path.join(root, 'package.json')
+      , packageJsonStr
+      )
+      var originalDirectory = process.cwd()
+      process.chdir(root)
 
-  const devDependencies = { 'bin-utils': version }
-
-  const packageJson = (
-    { name: packageName
-    , version: '0.1.0'
-    , private: true
-    , devDependencies
-    }
-  )
-  const packageJsonStr = JSON.stringify(packageJson, null, 2)
-  console.log(`Creating a new package in ${root}.\n--package.json--\n`, packageJsonStr)
-  fs.writeFileSync (
-    path.join(root, 'package.json')
-  , packageJsonStr
-  )
-  var originalDirectory = process.cwd()
-  process.chdir(root)
-
-  run(root, packageName, templateName, version, verbose, originalDirectory, packageJson)
-
-}
-
-
-
-function install(useYarn, message, cb) {
-  try {
-    console.log(message)
-    const executable = useYarn ? 'yarn' : 'npm'
-    const args = (useYarn ? [] : [ 'install', verbose ? '--verbose' : '--silent' ]).filter((e) => { return e })
-    spawn(
-      executable
-    , args
-    , { stdio: 'inherit' }
-    ).on('close', (code, ...args) => {
-      if (code !== 0) {
-        console.error(`${executable} ${args.join(' ')} failed with ${code}:\n${args.join('\n')}`)
-        process.exit(1)
-      }
-      cb()
+      run(root, packageName, templateName, version, verbose, originalDirectory, packageJson)
     })
-  } catch(err) {
-    cb(err)
-  }
+
 }
-
-
-
 
 function run(root, packageName, templateName, version, verbose, originalDirectory, packageJson) {
   const installPackage = getInstallPackage(version)
@@ -137,6 +115,7 @@ function run(root, packageName, templateName, version, verbose, originalDirector
 
       checkNodeVersion(utilsName)
 
+/*
       var dependenciesPath = path.resolve(
         process.cwd()
       , 'node_modules'
@@ -173,6 +152,7 @@ function run(root, packageName, templateName, version, verbose, originalDirector
           console.error(err)
           process.exit(1)
         }
+        */
 
         var scriptsPath = path.resolve(
           process.cwd()
@@ -184,8 +164,10 @@ function run(root, packageName, templateName, version, verbose, originalDirector
         )
         var init = require(scriptsPath).default
         init(root, packageName, verbose, originalDirectory)
+        /*
       })
     })
+    */
   })
 }
 

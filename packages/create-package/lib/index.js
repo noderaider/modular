@@ -36,6 +36,14 @@ var _detectInPath = require('./utils/detectInPath');
 
 var _detectInPath2 = _interopRequireDefault(_detectInPath);
 
+var _install = require('./utils/install');
+
+var _install2 = _interopRequireDefault(_install);
+
+var _nodeFetch = require('node-fetch');
+
+var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
+
 var _yargs = require('yargs');
 
 var _yargs2 = _interopRequireDefault(_yargs);
@@ -82,13 +90,12 @@ function createModule(templateName, name) {
     console.log('The directory ' + name + ' contains file(s) that could conflict. Aborting.');
     process.exit(1);
   }
-
-  var devDependencies = { 'bin-utils': version };
+  var templateUrl = 'https://raw.githubusercontent.com/noderaider/scaffold/master/packages/bin-utils/packages/create-css-module.json';
+  (0, _nodeFetch2.default)(templateUrl, function (res) {});
 
   var packageJson = { name: packageName,
     version: '0.1.0',
-    private: true,
-    devDependencies: devDependencies
+    private: true
   };
   var packageJsonStr = JSON.stringify(packageJson, null, 2);
   console.log('Creating a new package in ' + root + '.\n--package.json--\n', packageJsonStr);
@@ -97,31 +104,6 @@ function createModule(templateName, name) {
   process.chdir(root);
 
   run(root, packageName, templateName, version, verbose, originalDirectory, packageJson);
-}
-
-function install(useYarn, message, cb) {
-  try {
-    (function () {
-      console.log(message);
-      var executable = useYarn ? 'yarn' : 'npm';
-      var args = (useYarn ? [] : ['install', verbose ? '--verbose' : '--silent']).filter(function (e) {
-        return e;
-      });
-      (0, _crossSpawn2.default)(executable, args, { stdio: 'inherit' }).on('close', function (code) {
-        for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-          args[_key - 1] = arguments[_key];
-        }
-
-        if (code !== 0) {
-          console.error(executable + ' ' + args.join(' ') + ' failed with ' + code + ':\n' + args.join('\n'));
-          process.exit(1);
-        }
-        cb();
-      });
-    })();
-  } catch (err) {
-    cb(err);
-  }
 }
 
 function run(root, packageName, templateName, version, verbose, originalDirectory, packageJson) {
@@ -153,7 +135,7 @@ function run(root, packageName, templateName, version, verbose, originalDirector
         process.exit(1)
       }
       */
-    install(useYarn, useYarn ? _chalk2.default.bold.green('--yarn detected--') + ' | installing bin-utils at velocity c | ' + _chalk2.default.blue('(negligible error due to medium)') : _chalk2.default.bold.yellow('--yarn not detected--') + ' | installing bin-utils with npm\n\t' + _chalk2.default.bold.yellow('install yarn globally with `npm i -g yarn@latest` for a faster experience'), function (err) {
+    (0, _install2.default)(useYarn, useYarn ? _chalk2.default.bold.green('--yarn detected--') + ' | installing bin-utils at velocity c | ' + _chalk2.default.blue('(negligible error due to medium)') : _chalk2.default.bold.yellow('--yarn not detected--') + ' | installing bin-utils with npm\n\t' + _chalk2.default.bold.yellow('install yarn globally with `npm i -g yarn@latest` for a faster experience'), function (err) {
       if (err) {
         console.error(err);
         process.exit(1);
@@ -172,7 +154,7 @@ function run(root, packageName, templateName, version, verbose, originalDirector
       });
       console.info('ABOUT TO WRITE SECOND FILE', root, '\n', JSON.stringify(dependencies, null, 2), '\n', JSON.stringify(devDependencies, null, 2));
       _fs2.default.writeFileSync(_path2.default.join(root, 'package.json'), JSON.stringify(_packageJson, null, 2));
-      install(useYarn, 'installing additional ' + templateName + ' dependencies...', function (err) {
+      (0, _install2.default)(useYarn, 'installing additional ' + templateName + ' dependencies...', function (err) {
         if (err) {
           console.error(err);
           process.exit(1);
