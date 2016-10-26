@@ -1,6 +1,6 @@
 {
   "name": "create-sass-module",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Unofficial companion to create-react-app.",
   "files": [
     "bin.js",
@@ -16,7 +16,7 @@
     "packages"
   ],
   "dependencies": {
-    "create-package": "^0.4.0"
+    "create-package": "^0.4.1"
   },
   "author": "Cole Chamberlain <cole.chamberlain@gmail.com> (https://github.com/cchamberlain)",
   "bugs": {
