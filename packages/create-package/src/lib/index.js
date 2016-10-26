@@ -89,18 +89,10 @@ function run(root, packageName, templateName, version, verbose, originalDirector
 
   console.log('Installing packages. This might take a couple minutes...')
   detectInPath('yarn', (useYarn) => {
-    install(useYarn, useYarn ? `${chalk.bold.green('--yarn detected--')} | installing bin-utils at velocity c | ${chalk.blue('(negligible error due to medium)')}` : `${chalk.bold.yellow('--yarn not detected--')} | installing bin-utils with npm\n\t${chalk.bold.yellow('install yarn globally with `npm i -g yarn@latest` for a faster experience')}`, (err) => {
-      if(err) {
-        if(useYarn) {
-          console.warn('Error during yarn install, falling back to npm...')
-          install(false, `${chalk.bold.yellow('--yarn error occurred--')} | installing bin-utils with npm`, (err) => {
-
-        }
-        console.error(err)
-        process.exit(1)
-      }
+    install(useYarn, useYarn ? `${chalk.bold.green('--yarn detected--')} | installing bin-utils at velocity c | ${chalk.blue('(negligible error due to medium)')}` : `${chalk.bold.yellow('--yarn not detected--')} | installing bin-utils with npm\n\t${chalk.bold.yellow('install yarn globally with `npm i -g yarn@latest` for a faster experience')}`, () => {
 
       checkNodeVersion(utilsName)
+
       const scriptsPath = path.resolve(
         process.cwd()
       , 'node_modules'

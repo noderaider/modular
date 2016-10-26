@@ -1,2 +1,2 @@
 import createInit from '../createInit'
-export default createInit('create-css-module')
+export default createInit('create-cli-module')

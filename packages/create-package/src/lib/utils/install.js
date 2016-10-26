@@ -2,7 +2,7 @@ import spawn from 'cross-spawn'
 import util from 'util'
 
 function installFail(code, ...args) {
-  console.error(`npm install failed with ${code}:\n${args.join('\n')}`)
+  console.error(`--npm install failed with ${code}--\n${args.join('\n')}`)
   process.exit(1)
 }
 

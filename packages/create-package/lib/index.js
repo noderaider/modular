@@ -121,13 +121,10 @@ function run(root, packageName, templateName, version, verbose, originalDirector
 
   console.log('Installing packages. This might take a couple minutes...');
   (0, _detectInPath2.default)('yarn', function (useYarn) {
-    (0, _install2.default)(useYarn, useYarn ? _chalk2.default.bold.green('--yarn detected--') + ' | installing bin-utils at velocity c | ' + _chalk2.default.blue('(negligible error due to medium)') : _chalk2.default.bold.yellow('--yarn not detected--') + ' | installing bin-utils with npm\n\t' + _chalk2.default.bold.yellow('install yarn globally with `npm i -g yarn@latest` for a faster experience'), function (err) {
-      if (err) {
-        console.error(err);
-        process.exit(1);
-      }
+    (0, _install2.default)(useYarn, useYarn ? _chalk2.default.bold.green('--yarn detected--') + ' | installing bin-utils at velocity c | ' + _chalk2.default.blue('(negligible error due to medium)') : _chalk2.default.bold.yellow('--yarn not detected--') + ' | installing bin-utils with npm\n\t' + _chalk2.default.bold.yellow('install yarn globally with `npm i -g yarn@latest` for a faster experience'), function () {
 
       checkNodeVersion(utilsName);
+
       var scriptsPath = _path2.default.resolve(process.cwd(), 'node_modules', utilsName, 'scripts', templateName, 'init.js');
       var init = require(scriptsPath).default;
       init(root, packageName, verbose, originalDirectory);
