@@ -31,4 +31,13 @@ Object.defineProperty(exports, 'rimraf', {
   }
 });
 
+var _stat = require('./stat');
+
+Object.defineProperty(exports, 'stat', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_stat).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

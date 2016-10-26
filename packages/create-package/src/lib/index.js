@@ -3,10 +3,9 @@ import path from 'path'
 import spawn from 'cross-spawn'
 import chalk from 'chalk'
 import semver from 'semver'
-import minimist from 'minimist'
 import pathExists from 'path-exists'
-const argv = minimist(process.argv.slice(2))
-
+import detectInPath from './utils/detectInPath'
+import yargs from 'yargs'
 
 export default function createPackage(packageJSON) {
   if(!packageJSON)
@@ -15,25 +14,38 @@ export default function createPackage(packageJSON) {
     throw new Error('packageJSON must have a name.')
   if(!packageJSON.version)
     throw new Error('packageJSON must have a version.')
-  /**
-   * Arguments:
-   *   --version - to print current version
-   *   --verbose - to print logs while init
-   *   --bin-utils-version <alternative package>
-   */
-  const [ name ] = argv._
-  if (!name) {
-    if (argv.version) {
-      console.log(`${JSON.stringify(packageJSON, null, 2)}`)
+
+  const templateName = packageJSON.name
+  const templateVersion = packageJSON.version
+
+  return function configureModule (name, opts) {
+    if (!name && !opts) {
+      const argv = yargs
+        .usage(`Usage: ${templateName} <project-directory> [options]\nversion: ${templateVersion}`)
+        .describe('verbose', 'Print a lot of information.')
+        .describe('version', 'Print the current bin utils version.')
+        .alias('v', 'version')
+        .help('h')
+        .alias('h', 'help')
+        .demand(1)
+        .argv
+      name = argv._[0]
+      opts = argv
+    }
+
+    if (!name) {
+      argv.showHelp()
+      process.exit(1)
+    }
+    if (opts.version) {
+      argv.showHelp('info')
       process.exit()
     }
-    console.error(`Usage: ${packageJSON.name} <project-directory> [--verbose]`)
-    process.exit(1)
+    return createModule(templateName, name, opts)
   }
-  return createModule(name, argv.verbose, argv['bin-utils-version'])
 }
 
-function createModule(name, verbose, version) {
+function createModule(templateName, name, { verbose, version } = {}) {
   var root = path.resolve(name)
   var packageName = path.basename(root)
 
@@ -54,47 +66,57 @@ function createModule(name, verbose, version) {
     , private: true
     }
   )
-  fs.writeFileSync(
+  fs.writeFileSync (
     path.join(root, 'package.json')
   , JSON.stringify(packageJson, null, 2)
   )
   var originalDirectory = process.cwd()
   process.chdir(root)
 
-  console.log('Installing packages. This might take a couple minutes.')
-  console.log('Installing bin-utils from npm...')
-  console.log()
-  run(root, packageName, version, verbose, originalDirectory)
+  run(root, packageName, templateName, version, verbose, originalDirectory)
 }
 
-function run(root, packageName, version, verbose, originalDirectory) {
-  var installPackage = getInstallPackage(version)
-  var packageName = getPackageName(installPackage)
-  var args = [
-    'install'
-    , verbose && '--verbose'
-    , '--save-dev'
-    , '--save-exact'
-    , installPackage
-   ].filter((e) => { return e })
-  var proc = spawn('npm', args, { stdio: 'inherit' })
-  proc.on('close', (code) => {
-    if (code !== 0) {
-      console.error('`npm ' + args.join(' ') + '` failed')
-      return
-    }
+function run(root, packageName, templateName, version, verbose, originalDirectory) {
+  const installPackage = getInstallPackage(version)
+  const utilsName = getUtilsName(installPackage)
 
-    checkNodeVersion(packageName)
+  console.log('Installing packages. This might take a couple minutes...')
+  detectInPath('yarn', (useYarn) => {
+    console.log(useYarn ? `${chalk.bold.green('--yarn detected--')} | installing bin-utils at velocity c | ${chalk.blue('(negligible error due to medium)')}` : `${chalk.bold.yellow('--yarn not detected--')} | installing bin-utils with npm\n\t${chalk.bold.yellow('install yarn globally with `npm i -g yarn@latest` for a faster experience')}`)
+    const executable = useYarn ? 'yarn' : 'npm'
+    const args = (useYarn ? [ 'add'
+                            , '--dev'
+                            , installPackage
+                            ]
+                          : [ 'install'
+                            , verbose ? '--verbose' : '--silent'
+                            , '--save-dev'
+                            , '--save-exact'
+                            , installPackage
+                            ]).filter((e) => { return e })
+    spawn(
+      executable
+    , args
+    , { stdio: 'inherit' }
+    ).on('close', (code, ...args) => {
+      if (code !== 0) {
+        console.error(`${executable} ${args.join(' ')} failed with ${code}:\n${args.join('\n')}`)
+        process.exit(1)
+      }
 
-    var scriptsPath = path.resolve(
-      process.cwd(),
-      'node_modules',
-      packageName,
-      'scripts',
-      'init.js'
-    )
-    var init = require(scriptsPath)
-    init(root, packageName, verbose, originalDirectory)
+      checkNodeVersion(utilsName)
+
+      var scriptsPath = path.resolve(
+        process.cwd()
+      , 'node_modules'
+      , utilsName
+      , 'scripts'
+      , templateName
+      , 'init.js'
+      )
+      var init = require(scriptsPath).default
+      init(root, packageName, verbose, originalDirectory)
+    })
   })
 }
 
@@ -111,7 +133,7 @@ function getInstallPackage(version) {
 }
 
 // Extract package name from tarball url or path.
-function getPackageName(installPackage) {
+function getUtilsName(installPackage) {
   if (installPackage.indexOf('.tgz') > -1) {
     // The package name could be with or without semver version, e.g. bin-utils-0.2.0-alpha.1.tgz
     // However, this function returns package name only wihout semver version.
@@ -136,7 +158,7 @@ function checkNodeVersion(packageName) {
 
   if (!semver.satisfies(process.version, packageJson.engines.node)) {
     console.error(chalk.red(`
-You are currently running Node %s but create-react-app requires %s.
+You are currently running Node %s but create-package requires %s.
  Please use a supported version of Node.\n`
       )
     , process.version
@@ -164,12 +186,7 @@ Due to the way npm works, the following names are not allowed:\n\n`) +
   }
 }
 
-// If project only contains files generated by GH, it’s safe.
-// We also special case IJ-based products .idea because it integrates with CRA:
-// https://github.com/facebookincubator/create-react-app/pull/368#issuecomment-243446094
 function isSafeToCreateProjectIn(root) {
-  var validFiles = [
-    '.DS_Store', 'Thumbs.db', '.git', '.gitignore', '.idea', 'README.md', 'LICENSE'
-  ]
+  const validFiles = [ '.DS_Store', 'Thumbs.db', '.git', '.gitignore', '.idea', 'README.md', 'LICENSE' ]
   return fs.readdirSync(root).every((file) => validFiles.indexOf(file) >= 0)
 }

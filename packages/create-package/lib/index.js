@@ -3,9 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
 exports.default = createPackage;
 
 var _fs = require('fs');
@@ -28,47 +25,52 @@ var _semver = require('semver');
 
 var _semver2 = _interopRequireDefault(_semver);
 
-var _minimist = require('minimist');
-
-var _minimist2 = _interopRequireDefault(_minimist);
-
 var _pathExists = require('path-exists');
 
 var _pathExists2 = _interopRequireDefault(_pathExists);
 
+var _detectInPath = require('./utils/detectInPath');
+
+var _detectInPath2 = _interopRequireDefault(_detectInPath);
+
+var _yargs = require('yargs');
+
+var _yargs2 = _interopRequireDefault(_yargs);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var argv = (0, _minimist2.default)(process.argv.slice(2));
+function createPackage(packageJSON) {
+  if (!packageJSON) throw new Error('packageJSON must exist.');
+  if (!packageJSON.name) throw new Error('packageJSON must have a name.');
+  if (!packageJSON.version) throw new Error('packageJSON must have a version.');
 
-function createPackage(scriptName, scriptVersion) {
-  if (!scriptName) throw new Error('Must supply a scriptName argument.');
-  if (!scriptVersion) throw new Error('Must supply a scriptVersion argument.');
-  /**
-   * Arguments:
-   *   --version - to print current version
-   *   --verbose - to print logs while init
-   *   --bin-utils-version <alternative package>
-   *     Example of valid values:
-   *     - a specific npm version: "0.22.0-rc1"
-   *     - a .tgz archive from any npm repo: "https://registry.npmjs.org/react-scripts/-/react-scripts-0.20.0.tgz"
-   */
+  var templateName = packageJSON.name;
+  var templateVersion = packageJSON.version;
 
-  var _argv$_ = _slicedToArray(argv._, 1);
+  return function configureModule(name, opts) {
+    if (!name && !opts) {
+      var _argv = _yargs2.default.usage('Usage: ' + templateName + ' <project-directory> [options]\nversion: ' + templateVersion).describe('verbose', 'Print a lot of information.').describe('version', 'Print the current bin utils version.').alias('v', 'version').help('h').alias('h', 'help').demand(1).argv;
+      name = _argv._[0];
+      opts = _argv;
+    }
 
-  var name = _argv$_[0];
-
-  if (!name) {
-    if (argv.version) {
-      console.log(scriptName + ' version: ' + version);
+    if (!name) {
+      argv.showHelp();
+      process.exit(1);
+    }
+    if (opts.version) {
+      argv.showHelp('info');
       process.exit();
     }
-    console.error('Usage: ' + scriptName + ' <project-directory> [--verbose]');
-    process.exit(1);
-  }
-  return _createPackage(name, argv.verbose, argv['bin-utils-version']);
+    return createModule(templateName, name, opts);
+  };
 }
 
-function _createPackage(name, verbose, version) {
+function createModule(templateName, name) {
+  var _ref = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {},
+      verbose = _ref.verbose,
+      version = _ref.version;
+
   var root = _path2.default.resolve(name);
   var packageName = _path2.default.basename(root);
 
@@ -91,30 +93,36 @@ function _createPackage(name, verbose, version) {
   var originalDirectory = process.cwd();
   process.chdir(root);
 
-  console.log('Installing packages. This might take a couple minutes.');
-  console.log('Installing bin-utils from npm...');
-  console.log();
-  run(root, packageName, version, verbose, originalDirectory);
+  run(root, packageName, templateName, version, verbose, originalDirectory);
 }
 
-function run(root, packageName, version, verbose, originalDirectory) {
+function run(root, packageName, templateName, version, verbose, originalDirectory) {
   var installPackage = getInstallPackage(version);
-  var packageName = getPackageName(installPackage);
-  var args = ['install', verbose && '--verbose', '--save-dev', '--save-exact', installPackage].filter(function (e) {
-    return e;
-  });
-  var proc = (0, _crossSpawn2.default)('npm', args, { stdio: 'inherit' });
-  proc.on('close', function (code) {
-    if (code !== 0) {
-      console.error('`npm ' + args.join(' ') + '` failed');
-      return;
-    }
+  var utilsName = getUtilsName(installPackage);
 
-    checkNodeVersion(packageName);
+  console.log('Installing packages. This might take a couple minutes...');
+  (0, _detectInPath2.default)('yarn', function (useYarn) {
+    console.log(useYarn ? _chalk2.default.bold.green('--yarn detected--') + ' | installing bin-utils at velocity c | ' + _chalk2.default.blue('(negligible error due to medium)') : _chalk2.default.bold.yellow('--yarn not detected--') + ' | installing bin-utils with npm\n\t' + _chalk2.default.bold.yellow('install yarn globally with `npm i -g yarn@latest` for a faster experience'));
+    var executable = useYarn ? 'yarn' : 'npm';
+    var args = (useYarn ? ['add', '--dev', installPackage] : ['install', verbose ? '--verbose' : '--silent', '--save-dev', '--save-exact', installPackage]).filter(function (e) {
+      return e;
+    });
+    (0, _crossSpawn2.default)(executable, args, { stdio: 'inherit' }).on('close', function (code) {
+      for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        args[_key - 1] = arguments[_key];
+      }
 
-    var scriptsPath = _path2.default.resolve(process.cwd(), 'node_modules', packageName, 'scripts', 'init.js');
-    var init = require(scriptsPath);
-    init(root, packageName, verbose, originalDirectory);
+      if (code !== 0) {
+        console.error(executable + ' ' + args.join(' ') + ' failed with ' + code + ':\n' + args.join('\n'));
+        process.exit(1);
+      }
+
+      checkNodeVersion(utilsName);
+
+      var scriptsPath = _path2.default.resolve(process.cwd(), 'node_modules', utilsName, 'scripts', templateName, 'init.js');
+      var init = require(scriptsPath).default;
+      init(root, packageName, verbose, originalDirectory);
+    });
   });
 }
 
@@ -131,7 +139,7 @@ function getInstallPackage(version) {
 }
 
 // Extract package name from tarball url or path.
-function getPackageName(installPackage) {
+function getUtilsName(installPackage) {
   if (installPackage.indexOf('.tgz') > -1) {
     // The package name could be with or without semver version, e.g. bin-utils-0.2.0-alpha.1.tgz
     // However, this function returns package name only wihout semver version.
@@ -149,7 +157,7 @@ function checkNodeVersion(packageName) {
   if (!packageJson.engines || !packageJson.engines.node) return;
 
   if (!_semver2.default.satisfies(process.version, packageJson.engines.node)) {
-    console.error(_chalk2.default.red('\nYou are currently running Node %s but create-react-app requires %s.\n Please use a supported version of Node.\n'), process.version, packageJson.engines.node);
+    console.error(_chalk2.default.red('\nYou are currently running Node %s but create-package requires %s.\n Please use a supported version of Node.\n'), process.version, packageJson.engines.node);
     process.exit(1);
   }
 }
@@ -168,9 +176,6 @@ function checkPackageName(packageName) {
   }
 }
 
-// If project only contains files generated by GH, it’s safe.
-// We also special case IJ-based products .idea because it integrates with CRA:
-// https://github.com/facebookincubator/create-react-app/pull/368#issuecomment-243446094
 function isSafeToCreateProjectIn(root) {
   var validFiles = ['.DS_Store', 'Thumbs.db', '.git', '.gitignore', '.idea', 'README.md', 'LICENSE'];
   return _fs2.default.readdirSync(root).every(function (file) {

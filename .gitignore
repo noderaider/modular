@@ -15,6 +15,7 @@ config-server.json
 /webpack/
 /doc/
 /log/
+/staging/
 
 
 /packages/js/config.js

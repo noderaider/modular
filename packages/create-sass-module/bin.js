@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
  * All rights reserved.
@@ -11,4 +13,4 @@
 
 'use strict';
 
-module.exports = require('create-package').default(require('./package.json'));
+require('./')();
