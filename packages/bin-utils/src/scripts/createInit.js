@@ -59,58 +59,44 @@ export default function createInit(name) {
       }
     })
 
-/*
-    // Run another npm install for react and react-dom
-    console.log('Installing react and react-dom from npm...')
+    fs.move(path.join(appPath, 'npmignore'), path.join(appPath, '.npmignore'), [], (err) => {
+      if (err) {
+        // Append if there's already a `.npmignore` file there
+        if (err.code === 'EEXIST') {
+          var data = fs.readFileSync(path.join(appPath, 'npmignore'))
+          fs.appendFileSync(path.join(appPath, '.npmignore'), data)
+          fs.unlinkSync(path.join(appPath, 'npmignore'))
+        } else {
+          throw err
+        }
+      }
+    })
+
+
+    // Display the most elegant way to cd.
+    // This needs to handle an undefined originalDirectory for
+    // backward compatibility with old global-cli's.
+    let cdpath = (originalDirectory && path.join(originalDirectory, appName) === appPath) ? appName : appPath
+
     console.log()
-    // TODO: having to do two npm installs is bad, can we avoid it?
-    var args = [
-      'install'
-    , 'react'
-    , 'react-dom'
-    , '--save'
-    , verbose && '--verbose'
-    ].filter((x) => x)
-    var proc = spawn('npm', args, { stdio: 'inherit' })
-    proc.on('close', (code) => {
-      if (code !== 0) {
-        console.error('`npm ' + args.join(' ') + '` failed')
-        return
-      }
-      */
-
-      // Display the most elegant way to cd.
-      // This needs to handle an undefined originalDirectory for
-      // backward compatibility with old global-cli's.
-      let cdpath = (originalDirectory && path.join(originalDirectory, appName) === appPath) ? appName : appPath
-
+    console.log('Success! Created ' + appName + ' at ' + appPath)
+    console.log('Inside that directory, you can run several commands:')
+    console.log()
+    console.log(chalk.cyan('  npm start'))
+    console.log('    Starts the module in hot rebuild mode. (Run this then run your downstream app with hot module reload)')
+    console.log()
+    console.log(chalk.cyan('  npm run build'))
+    console.log('    Bundles the app into static files for production.')
+    console.log()
+    console.log('We suggest that you begin by typing:')
+    console.log()
+    console.log(chalk.cyan('  cd'), cdpath)
+    console.log('  ' + chalk.cyan('npm start'))
+    if (readmeExists) {
       console.log()
-      console.log('Success! Created ' + appName + ' at ' + appPath)
-      console.log('Inside that directory, you can run several commands:')
-      console.log()
-      console.log(chalk.cyan('  npm start'))
-      console.log('    Starts the development server.')
-      console.log()
-      console.log(chalk.cyan('  npm run build'))
-      console.log('    Bundles the app into static files for production.')
-      console.log()
-      console.log(chalk.cyan('  npm test'))
-      console.log('    Starts the test runner.')
-      console.log()
-      console.log(chalk.cyan('  npm run eject'))
-      console.log('    Removes this tool and copies build dependencies, configuration files')
-      console.log('    and scripts into the app directory. If you do this, you can’t go back!')
-      console.log()
-      console.log('We suggest that you begin by typing:')
-      console.log()
-      console.log(chalk.cyan('  cd'), cdpath)
-      console.log('  ' + chalk.cyan('npm start'))
-      if (readmeExists) {
-        console.log()
-        console.log(chalk.yellow('You had a `README.md` file, we renamed it to `README.old.md`'))
-      }
-      console.log()
-      console.log('Happy hacking!')
-    //})
+      console.log(chalk.yellow('You had a `README.md` file, we renamed it to `README.old.md`'))
+    }
+    console.log()
+    console.log('Happy hacking!')
   }
 }

@@ -54,12 +54,11 @@ function createModule(templateName, name, { verbose, version = '*' } = {}) {
     console.log(`The directory ${name} contains file(s) that could conflict. Aborting.`)
     process.exit(1)
   }
-  const templateUrl = `https://raw.githubusercontent.com/noderaider/scaffold/master/packages/bin-utils/packages/${templateName}.json`
+  const templateUrl = `https://raw.githubusercontent.com/noderaider/scaffold/master/packages/bin-utils/packages/${templateName}.json?_c=${Date.now()}`
   console.info(`fetching template package.json from '${templateUrl}'`)
   fetch(templateUrl)
     .then((res) => res.json())
     .then((template) => {
-      console.info(`fetched!\n'${JSON.stringify(template, null, 2)}'`)
       const packageJson = (
         { name: packageName
         , version: '0.1.0'
@@ -90,29 +89,6 @@ function run(root, packageName, templateName, version, verbose, originalDirector
 
   console.log('Installing packages. This might take a couple minutes...')
   detectInPath('yarn', (useYarn) => {
-    /*
-    console.log(useYarn ? `${chalk.bold.green('--yarn detected--')} | installing bin-utils at velocity c | ${chalk.blue('(negligible error due to medium)')}` : `${chalk.bold.yellow('--yarn not detected--')} | installing bin-utils with npm\n\t${chalk.bold.yellow('install yarn globally with `npm i -g yarn@latest` for a faster experience')}`)
-    const executable = useYarn ? 'yarn' : 'npm'
-    const args = (useYarn ? [ 'add'
-                            , '--dev'
-                            , installPackage
-                            ]
-                          : [ 'install'
-                            , verbose ? '--verbose' : '--silent'
-                            , '--save-dev'
-                            , '--save-exact'
-                            , installPackage
-                            ]).filter((e) => { return e })
-    spawn(
-      executable
-    , args
-    , { stdio: 'inherit' }
-    ).on('close', (code, ...args) => {
-      if (code !== 0) {
-        console.error(`${executable} ${args.join(' ')} failed with ${code}:\n${args.join('\n')}`)
-        process.exit(1)
-      }
-      */
     install(useYarn, useYarn ? `${chalk.bold.green('--yarn detected--')} | installing bin-utils at velocity c | ${chalk.blue('(negligible error due to medium)')}` : `${chalk.bold.yellow('--yarn not detected--')} | installing bin-utils with npm\n\t${chalk.bold.yellow('install yarn globally with `npm i -g yarn@latest` for a faster experience')}`, (err) => {
       if(err) {
         console.error(err)
@@ -120,59 +96,16 @@ function run(root, packageName, templateName, version, verbose, originalDirector
       }
 
       checkNodeVersion(utilsName)
-
-/*
-      var dependenciesPath = path.resolve(
+      const scriptsPath = path.resolve(
         process.cwd()
       , 'node_modules'
       , utilsName
-      , 'packages'
+      , 'scripts'
       , templateName
-      , 'dependencies.json'
+      , 'init.js'
       )
-      var devDependenciesPath = path.resolve(
-        process.cwd()
-      , 'node_modules'
-      , utilsName
-      , 'packages'
-      , templateName
-      , 'devDependencies.json'
-      )
-
-      var dependencies = require(dependenciesPath)
-      var devDependencies = require(devDependenciesPath)
-
-      const _packageJson = (
-        { ...packageJson
-        , dependencies
-        , devDependencies: { ...packageJson.devDependencies, ...devDependencies }
-        }
-      )
-      console.info('ABOUT TO WRITE SECOND FILE', root, '\n', JSON.stringify(dependencies, null, 2), '\n', JSON.stringify(devDependencies, null, 2))
-      fs.writeFileSync (
-        path.join(root, 'package.json')
-      , JSON.stringify(_packageJson, null, 2)
-      )
-      install(useYarn, `installing additional ${templateName} dependencies...`, (err) => {
-        if(err) {
-          console.error(err)
-          process.exit(1)
-        }
-        */
-
-        var scriptsPath = path.resolve(
-          process.cwd()
-        , 'node_modules'
-        , utilsName
-        , 'scripts'
-        , templateName
-        , 'init.js'
-        )
-        var init = require(scriptsPath).default
-        init(root, packageName, verbose, originalDirectory)
-        /*
-      })
-    */
+      const init = require(scriptsPath).default
+      init(root, packageName, verbose, originalDirectory)
     })
   })
 }
