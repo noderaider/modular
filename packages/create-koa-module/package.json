@@ -1,6 +1,6 @@
 {
   "name": "create-koa-module",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "Unofficial companion to create-react-app.",
   "files": [
     "bin.js",
@@ -16,7 +16,7 @@
     "packages"
   ],
   "dependencies": {
-    "create-package": "^0.7.4"
+    "create-package": "^0.7.5"
   },
   "author": "Cole Chamberlain <cole.chamberlain@gmail.com> (https://github.com/cchamberlain)",
   "bugs": {
