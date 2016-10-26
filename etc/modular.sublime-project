@@ -1,0 +1,30 @@
+{
+  "folders":
+  [
+    {
+      "folder_exclude_patterns": [ "node_modules" ],
+      "name": "bin-utils",
+      "path": "../packages/bin-utils"
+    },
+    {
+      "folder_exclude_patterns": [ "node_modules" ],
+      "name": "create-package",
+      "path": "../packages/create-package"
+    },
+    {
+      "folder_exclude_patterns": [ "node_modules" ],
+      "name": "@raider/modular-test",
+      "path": "../packages/modular-test"
+    },
+    {
+      "folder_exclude_patterns": [ "node_modules" ],
+      "name": "@raider/install",
+      "path": "../packages/install"
+    },
+    {
+      "folder_exclude_patterns": [ "node_modules" ],
+      "name": "@raider/modular",
+      "path": "../"
+    }
+  ]
+}
