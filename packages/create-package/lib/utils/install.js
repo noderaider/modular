@@ -1,5 +1,10 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = install;
+
 var _crossSpawn = require('cross-spawn');
 
 var _crossSpawn2 = _interopRequireDefault(_crossSpawn);

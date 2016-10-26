@@ -15,17 +15,14 @@ import spawn from 'cross-spawn'
 import pathExists from 'path-exists'
 import chalk from 'chalk'
 
-export default function createInit({ dependencies, devDependencies } = {}) {
+export default function createInit(name) {
   return function init (appPath, appName, verbose, originalDirectory) {
     const ownPackageName = require(path.join(__dirname, '..', 'package.json')).name
     const ownPath = path.join(appPath, 'node_modules', ownPackageName)
     const appPackage = require(path.join(appPath, 'package.json'))
 
-    // Copy over some of the devDependencies
-    appPackage.dependencies = appPackage.dependencies || {}
-    appPackage.devDependencies = appPackage.devDependencies || {}
-
     // Setup the script rules
+    /*
     appPackage.scripts = (
       { start: 'bin-utils start'
       , build: 'bin-utils build'
@@ -38,13 +35,14 @@ export default function createInit({ dependencies, devDependencies } = {}) {
       path.join(appPath, 'package.json')
     , JSON.stringify(appPackage, null, 2)
     )
+    */
 
     const readmeExists = pathExists.sync(path.join(appPath, 'README.md'))
     if (readmeExists)
       fs.renameSync(path.join(appPath, 'README.md'), path.join(appPath, 'README.old.md'))
 
     // Copy the files for the user
-    fs.copySync(path.join(ownPath, 'template'), appPath)
+    fs.copySync(path.join(ownPath, 'template', name), appPath)
 
     // Rename gitignore after the fact to prevent npm from renaming it to .npmignore
     // See: https://github.com/npm/npm/issues/1862

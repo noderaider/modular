@@ -8,6 +8,7 @@ import detectInPath from './utils/detectInPath'
 import install from './utils/install'
 import fetch from 'node-fetch'
 import yargs from 'yargs'
+import util from 'util'
 
 export default function createPackage(packageJSON) {
   if(!packageJSON)
@@ -54,9 +55,11 @@ function createModule(templateName, name, { verbose, version = '*' } = {}) {
     process.exit(1)
   }
   const templateUrl = `https://raw.githubusercontent.com/noderaider/scaffold/master/packages/bin-utils/packages/${templateName}.json`
+  console.info(`fetching template package.json from '${templateUrl}'`)
   fetch(templateUrl)
     .then((res) => res.json())
     .then((template) => {
+      console.info(`fetched!\n'${JSON.stringify(template, null, 2)}'`)
       const packageJson = (
         { name: packageName
         , version: '0.1.0'
@@ -74,6 +77,9 @@ function createModule(templateName, name, { verbose, version = '*' } = {}) {
       process.chdir(root)
 
       run(root, packageName, templateName, version, verbose, originalDirectory, packageJson)
+    })
+    .catch((err) => {
+      console.error('ERROR OCCURRED DURING FETCH', util.inspect(err))
     })
 
 }
@@ -166,8 +172,8 @@ function run(root, packageName, templateName, version, verbose, originalDirector
         init(root, packageName, verbose, originalDirectory)
         /*
       })
-    })
     */
+    })
   })
 }
 

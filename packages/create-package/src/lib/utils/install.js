@@ -1,6 +1,6 @@
 import spawn from 'cross-spawn'
 
-function install(useYarn, message, cb) {
+export default function install(useYarn, message, cb) {
   try {
     console.log(message)
     const executable = useYarn ? 'yarn' : 'npm'

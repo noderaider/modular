@@ -48,6 +48,10 @@ var _yargs = require('yargs');
 
 var _yargs2 = _interopRequireDefault(_yargs);
 
+var _util = require('util');
+
+var _util2 = _interopRequireDefault(_util);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function createPackage(packageJSON) {
@@ -90,20 +94,26 @@ function createModule(templateName, name) {
     console.log('The directory ' + name + ' contains file(s) that could conflict. Aborting.');
     process.exit(1);
   }
-  var templateUrl = 'https://raw.githubusercontent.com/noderaider/scaffold/master/packages/bin-utils/packages/create-css-module.json';
-  (0, _nodeFetch2.default)(templateUrl, function (res) {});
+  var templateUrl = 'https://raw.githubusercontent.com/noderaider/scaffold/master/packages/bin-utils/packages/' + templateName + '.json';
+  console.info('fetching template package.json from \'' + templateUrl + '\'');
+  (0, _nodeFetch2.default)(templateUrl).then(function (res) {
+    return res.json();
+  }).then(function (template) {
+    console.info('fetched!\n\'' + JSON.stringify(template, null, 2) + '\'');
+    var packageJson = _extends({ name: packageName,
+      version: '0.1.0',
+      private: true
+    }, template);
+    var packageJsonStr = JSON.stringify(packageJson, null, 2);
+    console.log('Creating a new package in ' + root + '.\n--package.json--\n', packageJsonStr);
+    _fs2.default.writeFileSync(_path2.default.join(root, 'package.json'), packageJsonStr);
+    var originalDirectory = process.cwd();
+    process.chdir(root);
 
-  var packageJson = { name: packageName,
-    version: '0.1.0',
-    private: true
-  };
-  var packageJsonStr = JSON.stringify(packageJson, null, 2);
-  console.log('Creating a new package in ' + root + '.\n--package.json--\n', packageJsonStr);
-  _fs2.default.writeFileSync(_path2.default.join(root, 'package.json'), packageJsonStr);
-  var originalDirectory = process.cwd();
-  process.chdir(root);
-
-  run(root, packageName, templateName, version, verbose, originalDirectory, packageJson);
+    run(root, packageName, templateName, version, verbose, originalDirectory, packageJson);
+  }).catch(function (err) {
+    console.error('ERROR OCCURRED DURING FETCH', _util2.default.inspect(err));
+  });
 }
 
 function run(root, packageName, templateName, version, verbose, originalDirectory, packageJson) {
@@ -143,27 +153,51 @@ function run(root, packageName, templateName, version, verbose, originalDirector
 
       checkNodeVersion(utilsName);
 
-      var dependenciesPath = _path2.default.resolve(process.cwd(), 'node_modules', utilsName, 'packages', templateName, 'dependencies.json');
-      var devDependenciesPath = _path2.default.resolve(process.cwd(), 'node_modules', utilsName, 'packages', templateName, 'devDependencies.json');
+      /*
+            var dependenciesPath = path.resolve(
+              process.cwd()
+            , 'node_modules'
+            , utilsName
+            , 'packages'
+            , templateName
+            , 'dependencies.json'
+            )
+            var devDependenciesPath = path.resolve(
+              process.cwd()
+            , 'node_modules'
+            , utilsName
+            , 'packages'
+            , templateName
+            , 'devDependencies.json'
+            )
+      
+            var dependencies = require(dependenciesPath)
+            var devDependencies = require(devDependenciesPath)
+      
+            const _packageJson = (
+              { ...packageJson
+              , dependencies
+              , devDependencies: { ...packageJson.devDependencies, ...devDependencies }
+              }
+            )
+            console.info('ABOUT TO WRITE SECOND FILE', root, '\n', JSON.stringify(dependencies, null, 2), '\n', JSON.stringify(devDependencies, null, 2))
+            fs.writeFileSync (
+              path.join(root, 'package.json')
+            , JSON.stringify(_packageJson, null, 2)
+            )
+            install(useYarn, `installing additional ${templateName} dependencies...`, (err) => {
+              if(err) {
+                console.error(err)
+                process.exit(1)
+              }
+              */
 
-      var dependencies = require(dependenciesPath);
-      var devDependencies = require(devDependenciesPath);
-
-      var _packageJson = _extends({}, packageJson, { dependencies: dependencies,
-        devDependencies: _extends({}, packageJson.devDependencies, devDependencies)
-      });
-      console.info('ABOUT TO WRITE SECOND FILE', root, '\n', JSON.stringify(dependencies, null, 2), '\n', JSON.stringify(devDependencies, null, 2));
-      _fs2.default.writeFileSync(_path2.default.join(root, 'package.json'), JSON.stringify(_packageJson, null, 2));
-      (0, _install2.default)(useYarn, 'installing additional ' + templateName + ' dependencies...', function (err) {
-        if (err) {
-          console.error(err);
-          process.exit(1);
-        }
-
-        var scriptsPath = _path2.default.resolve(process.cwd(), 'node_modules', utilsName, 'scripts', templateName, 'init.js');
-        var init = require(scriptsPath).default;
-        init(root, packageName, verbose, originalDirectory);
-      });
+      var scriptsPath = _path2.default.resolve(process.cwd(), 'node_modules', utilsName, 'scripts', templateName, 'init.js');
+      var init = require(scriptsPath).default;
+      init(root, packageName, verbose, originalDirectory);
+      /*
+      })
+      */
     });
   });
 }

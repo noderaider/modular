@@ -27,34 +27,32 @@ var _chalk2 = _interopRequireDefault(_chalk);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function createInit() {
-  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      dependencies = _ref.dependencies,
-      devDependencies = _ref.devDependencies;
-
+function createInit(name) {
   return function init(appPath, appName, verbose, originalDirectory) {
     var ownPackageName = require(_path2.default.join(__dirname, '..', 'package.json')).name;
     var ownPath = _path2.default.join(appPath, 'node_modules', ownPackageName);
     var appPackage = require(_path2.default.join(appPath, 'package.json'));
 
-    // Copy over some of the devDependencies
-    appPackage.dependencies = appPackage.dependencies || {};
-    appPackage.devDependencies = appPackage.devDependencies || {};
-
     // Setup the script rules
-    appPackage.scripts = { start: 'bin-utils start',
-      build: 'bin-utils build',
-      test: 'bin-utils test --env=jsdom',
-      eject: 'bin-utils eject'
-    };
-
-    _fsExtra2.default.writeFileSync(_path2.default.join(appPath, 'package.json'), JSON.stringify(appPackage, null, 2));
+    /*
+    appPackage.scripts = (
+      { start: 'bin-utils start'
+      , build: 'bin-utils build'
+      , test: 'bin-utils test --env=jsdom'
+      , eject: 'bin-utils eject'
+      }
+    )
+      fs.writeFileSync(
+      path.join(appPath, 'package.json')
+    , JSON.stringify(appPackage, null, 2)
+    )
+    */
 
     var readmeExists = _pathExists2.default.sync(_path2.default.join(appPath, 'README.md'));
     if (readmeExists) _fsExtra2.default.renameSync(_path2.default.join(appPath, 'README.md'), _path2.default.join(appPath, 'README.old.md'));
 
     // Copy the files for the user
-    _fsExtra2.default.copySync(_path2.default.join(ownPath, 'template'), appPath);
+    _fsExtra2.default.copySync(_path2.default.join(ownPath, 'template', name), appPath);
 
     // Rename gitignore after the fact to prevent npm from renaming it to .npmignore
     // See: https://github.com/npm/npm/issues/1862
