@@ -1,6 +1,6 @@
 {
   "name": "create-deploy-module",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "Unofficial companion to create-react-app.",
   "files": [
     "bin.js",
@@ -16,7 +16,7 @@
     "packages"
   ],
   "dependencies": {
-    "create-package": "^0.6.1"
+    "create-package": "^0.7.0"
   },
   "author": "Cole Chamberlain <cole.chamberlain@gmail.com> (https://github.com/cchamberlain)",
   "bugs": {
