@@ -1,0 +1,52 @@
+{
+  "name": "@raider/scaffold-test",
+  "version": "0.3.0",
+  "description": "Test project for all the scaffold modules",
+  "dependencies": {
+    "bin-utils": "^0.3.0",
+    "create-react-repo": "^0.3.0",
+    "create-component-module": "^0.3.0",
+    "create-css-module": "^0.3.0",
+    "create-sass-module": "^0.3.0",
+    "create-deploy-module": "^0.3.0",
+    "create-express-module": "^0.3.0",
+    "create-koa-module": "^0.3.0",
+    "create-package": "^0.3.0",
+    "babel-cli": "latest",
+    "babel-preset-latest": "latest",
+    "babel-preset-stage-2": "latest",
+    "bluebird": "latest",
+    "bunyan": "latest",
+    "deasync": "latest",
+    "graceful-fs": "latest",
+    "isomorphic-fetch": "latest",
+    "jest": "latest",
+    "lerna": "prerelease",
+    "mkdirp": "latest",
+    "ncp": "latest",
+    "npm-run-all": "latest",
+    "rimraf": "latest",
+    "signal-exit": "latest",
+    "simple-git": "latest",
+    "yargs": "latest"
+  },
+  "jest": {
+    "moduleDirectories": [
+      "node_modules"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "node"
+    ]
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noderaider/scaffold.git"
+  },
+  "author": "Cole Chamberlain <cole.chamberlain@gmail.com>",
+  "license": "MIT"
+}

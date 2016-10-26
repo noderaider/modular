@@ -1,12 +1,13 @@
 {
   "name": "bin-utils",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Collection of promisified bin utilities for creating cli components.",
   "main": "lib/index.js",
   "files": [
     ".babelrc",
     "bin",
     "lib",
+    "scripts",
     "README.md"
   ],
   "keywords": [
@@ -18,11 +19,11 @@
     "ncp"
   ],
   "scripts": {
+    "start": "npm run build -- --watch",
     "prebuild": "rimraf lib",
     "build": "babel src -d . --ignore __tests__,__mocks__",
     "test": "jest",
-    "prerelease": "run-s build test",
-    "release": "npm version patch && npm publish"
+    "preversion": "run-s test build"
   },
   "dependencies": {
     "babel-cli": "latest",

@@ -1,6 +1,6 @@
 {
   "name": "create-package",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "Unofficial companion to create-react-app.",
   "main": "lib/index.js",
   "files": [
@@ -16,18 +16,18 @@
     "packages"
   ],
   "scripts": {
+    "start": "npm run build -- --watch",
     "prebuild": "rimraf lib",
     "build": "babel src -d . --ignore __tests__,__mocks__",
     "test": "jest",
-    "prerelease": "npm run build && npm run test",
-    "release": "npm version patch && npm publish"
+    "preversion": "npm run build && npm run test"
   },
   "dependencies": {
     "chalk": "^1.1.1",
     "cross-spawn": "^4.0.0",
-    "minimist": "^1.2.0",
     "path-exists": "^2.1.0",
-    "semver": "^5.0.3"
+    "semver": "^5.0.3",
+    "yargs": "^6.3.0"
   },
   "devDependencies": {
     "babel-cli": "latest",
