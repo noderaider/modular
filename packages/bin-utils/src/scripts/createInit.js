@@ -15,7 +15,18 @@ import spawn from 'cross-spawn'
 import pathExists from 'path-exists'
 import chalk from 'chalk'
 
-export default function createInit(name) {
+export default function createInit(name, printUsage = (cdpath) => {
+  console.log(chalk.cyan('  npm start'))
+  console.log('    Starts the module in hot rebuild mode. (Run this then run your downstream app with hot module reload)')
+  console.log()
+  console.log(chalk.cyan('  npm run build'))
+  console.log('    Bundles the app into static files for production.')
+  console.log()
+  console.log('We suggest that you begin by typing:')
+  console.log()
+  console.log(chalk.cyan('  cd'), cdpath)
+  console.log('  ' + chalk.cyan('npm start'))
+}) {
   return function init (appPath, appName, verbose, originalDirectory) {
     const ownPackageName = require(path.join(__dirname, '..', 'package.json')).name
     const ownPath = path.join(appPath, 'node_modules', ownPackageName)
@@ -82,16 +93,9 @@ export default function createInit(name) {
     console.log('Success! Created ' + appName + ' at ' + appPath)
     console.log('Inside that directory, you can run several commands:')
     console.log()
-    console.log(chalk.cyan('  npm start'))
-    console.log('    Starts the module in hot rebuild mode. (Run this then run your downstream app with hot module reload)')
-    console.log()
-    console.log(chalk.cyan('  npm run build'))
-    console.log('    Bundles the app into static files for production.')
-    console.log()
-    console.log('We suggest that you begin by typing:')
-    console.log()
-    console.log(chalk.cyan('  cd'), cdpath)
-    console.log('  ' + chalk.cyan('npm start'))
+
+    printUsage(cdpath)
+
     if (readmeExists) {
       console.log()
       console.log(chalk.yellow('You had a `README.md` file, we renamed it to `README.old.md`'))

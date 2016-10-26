@@ -42,7 +42,7 @@ export default function createPackage(packageJSON) {
   }
 }
 
-function createModule(templateName, name, { verbose, version = '*' } = {}) {
+function createModule(templateName, name, { verbose = false, version = '*' } = {}) {
   var root = path.resolve(name)
   var packageName = path.basename(root)
 
@@ -89,13 +89,14 @@ function run(root, packageName, templateName, version, verbose, originalDirector
 
   console.log('Installing packages. This might take a couple minutes...')
   detectInPath('yarn', (useYarn) => {
-    install(useYarn, useYarn ? `${chalk.bold.green('--yarn detected--')} | installing bin-utils at velocity c | ${chalk.blue('(negligible error due to medium)')}` : `${chalk.bold.yellow('--yarn not detected--')} | installing bin-utils with npm\n\t${chalk.bold.yellow('install yarn globally with `npm i -g yarn@latest` for a faster experience')}`, (err) => {
-      if(err) {
-        console.error(err)
-        process.exit(1)
+    const opts = (
+      { message: useYarn ? `${chalk.bold.green('--yarn detected--')} | installing bin-utils at velocity c | ${chalk.blue('(negligible error due to medium)')}` : `${chalk.bold.yellow('--yarn not detected--')} | installing bin-utils with npm\n\t${chalk.bold.yellow('install yarn globally with `npm i -g yarn@latest` for a faster experience')}`
+      , verbose
       }
-
+    )
+    install(useYarn, opts, () => {
       checkNodeVersion(utilsName)
+
       const scriptsPath = path.resolve(
         process.cwd()
       , 'node_modules'
