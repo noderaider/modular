@@ -17,7 +17,12 @@ function shouldUseYarn() {
       npm = _ref.npm;
 
   var cb = arguments[1];
+  var desc = arguments[2];
 
   if (yarn && npm) throw new Error('you must choose between yarn or npm or let the best choice be autodetected.');
-  if (npm) cb(false);else if (yarn) cb(true);else (0, _which2.default)('yarn', cb);
+  if (npm) cb(false);else if (yarn) cb(true);else {
+    (0, _which2.default)('yarn', function (result) {
+      return cb(result ? true : false);
+    });
+  }
 }
