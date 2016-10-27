@@ -1,0 +1,37 @@
+{
+  "name": "@raider/which",
+  "version": "0.8.1",
+  "bin": "bin.js",
+  "main": "lib/index.js",
+  "files": [
+    "bin.js",
+    "lib"
+  ],
+  "scripts": {
+    "start": "npm run build -- --watch",
+    "prebuild": "rimraf lib",
+    "build": "babel src -d lib --ignore __tests__,__mocks__",
+    "test": "jest",
+    "preversion": "run-s test build"
+  },
+  "dependencies": {
+    "bin-utils": "latest",
+    "fs-extra": "latest",
+    "ncp": "latest",
+    "rimraf": "latest"
+  },
+  "devDependencies": {
+    "babel-cli": "latest",
+    "babel-core": "latest",
+    "babel-eslint": "latest",
+    "babel-loader": "latest",
+    "babel-plugin-transform-runtime": "latest",
+    "babel-preset-latest": "latest",
+    "babel-preset-stage-2": "latest",
+    "eslint": "latest",
+    "eslint-plugin-babel": "latest",
+    "eslint-plugin-react": "latest",
+    "npm-run-all": "latest",
+    "rewire": "latest"
+  }
+}

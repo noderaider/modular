@@ -28,6 +28,8 @@
     "preversion": "run-s test build"
   },
   "dependencies": {
+    "@raider/install": "latest",
+    "@raider/which": "latest",
     "babel-cli": "latest",
     "babel-preset-latest": "latest",
     "babel-preset-stage-2": "latest",

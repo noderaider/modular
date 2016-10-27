@@ -4,11 +4,10 @@ import spawn from 'cross-spawn'
 import chalk from 'chalk'
 import semver from 'semver'
 import pathExists from 'path-exists'
-import detectInPath from './utils/detectInPath'
-import install from './utils/install'
 import fetch from 'node-fetch'
 import yargs from 'yargs'
 import util from 'util'
+import install from '@raider/install'
 
 export default function createPackage(packageJSON) {
   if(!packageJSON)
@@ -88,26 +87,19 @@ function run(root, packageName, templateName, version, verbose, originalDirector
   const utilsName = getUtilsName(installPackage)
 
   console.log('Installing packages. This might take a couple minutes...')
-  detectInPath('yarn', (useYarn) => {
-    const opts = (
-      { message: useYarn ? `${chalk.bold.green('--yarn detected--')} | installing bin-utils at velocity c | ${chalk.blue('(negligible error due to medium)')}` : `${chalk.bold.yellow('--yarn not detected--')} | installing bin-utils with npm\n\t${chalk.bold.yellow('install yarn globally with `npm i -g yarn@latest` for a faster experience')}`
-      , verbose
-      }
-    )
-    install(useYarn, opts, () => {
-      checkNodeVersion(utilsName)
+  install({ verbose }, opts, () => {
+    checkNodeVersion(utilsName)
 
-      const scriptsPath = path.resolve(
-        process.cwd()
-      , 'node_modules'
-      , utilsName
-      , 'scripts'
-      , templateName
-      , 'init.js'
-      )
-      const init = require(scriptsPath).default
-      init(root, packageName, verbose, originalDirectory)
-    })
+    const scriptsPath = path.resolve(
+      process.cwd()
+    , 'node_modules'
+    , utilsName
+    , 'scripts'
+    , templateName
+    , 'init.js'
+    )
+    const init = require(scriptsPath).default
+    init(root, packageName, verbose, originalDirectory)
   })
 }
 

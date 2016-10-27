@@ -32,14 +32,6 @@ var _pathExists = require('path-exists');
 
 var _pathExists2 = _interopRequireDefault(_pathExists);
 
-var _detectInPath = require('./utils/detectInPath');
-
-var _detectInPath2 = _interopRequireDefault(_detectInPath);
-
-var _install = require('./utils/install');
-
-var _install2 = _interopRequireDefault(_install);
-
 var _nodeFetch = require('node-fetch');
 
 var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
@@ -51,6 +43,10 @@ var _yargs2 = _interopRequireDefault(_yargs);
 var _util = require('util');
 
 var _util2 = _interopRequireDefault(_util);
+
+var _install = require('@raider/install');
+
+var _install2 = _interopRequireDefault(_install);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -121,17 +117,12 @@ function run(root, packageName, templateName, version, verbose, originalDirector
   var utilsName = getUtilsName(installPackage);
 
   console.log('Installing packages. This might take a couple minutes...');
-  (0, _detectInPath2.default)('yarn', function (useYarn) {
-    var opts = { message: useYarn ? _chalk2.default.bold.green('--yarn detected--') + ' | installing bin-utils at velocity c | ' + _chalk2.default.blue('(negligible error due to medium)') : _chalk2.default.bold.yellow('--yarn not detected--') + ' | installing bin-utils with npm\n\t' + _chalk2.default.bold.yellow('install yarn globally with `npm i -g yarn@latest` for a faster experience'),
-      verbose: verbose
-    };
-    (0, _install2.default)(useYarn, opts, function () {
-      checkNodeVersion(utilsName);
+  (0, _install2.default)({ verbose: verbose }, opts, function () {
+    checkNodeVersion(utilsName);
 
-      var scriptsPath = _path2.default.resolve(process.cwd(), 'node_modules', utilsName, 'scripts', templateName, 'init.js');
-      var init = require(scriptsPath).default;
-      init(root, packageName, verbose, originalDirectory);
-    });
+    var scriptsPath = _path2.default.resolve(process.cwd(), 'node_modules', utilsName, 'scripts', templateName, 'init.js');
+    var init = require(scriptsPath).default;
+    init(root, packageName, verbose, originalDirectory);
   });
 }
 

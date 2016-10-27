@@ -23,6 +23,11 @@
     },
     {
       "folder_exclude_patterns": [ "node_modules" ],
+      "name": "@raider/which",
+      "path": "../packages/which"
+    },
+    {
+      "folder_exclude_patterns": [ "node_modules" ],
       "name": "@raider/modular",
       "path": "../"
     }

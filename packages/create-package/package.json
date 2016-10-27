@@ -23,6 +23,7 @@
     "preversion": "npm run build && npm run test"
   },
   "dependencies": {
+    "@raider/install": "^0.8.1",
     "chalk": "^1.1.1",
     "cross-spawn": "^4.0.0",
     "node-fetch": "^1.6.3",
