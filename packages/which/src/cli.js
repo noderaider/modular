@@ -16,8 +16,6 @@ export default function cli (cb = (err) => {
     .alias('h', 'help')
     .demand(1)
     .argv
-  const { _, ..._opts } = argv
-  args = _
-  opts = _opts
-  return api(args, opts, cb)
+  const { _, ...opts } = argv
+  return api(_, opts, cb)
 }

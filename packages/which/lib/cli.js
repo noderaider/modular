@@ -30,9 +30,7 @@ function cli() {
   var argv = _yargs2.default.usage('Usage: ' + packageJson.name + ' <project-directory> [options]\nversion: ' + packageJson.version).describe('verbose', 'Print debugging information.').help('h').alias('h', 'help').demand(1).argv;
 
   var _ = argv._,
-      _opts = _objectWithoutProperties(argv, ['_']);
+      opts = _objectWithoutProperties(argv, ['_']);
 
-  args = _;
-  opts = _opts;
-  return (0, _2.api)(args, opts, cb);
+  return (0, _2.api)(_, opts, cb);
 }
