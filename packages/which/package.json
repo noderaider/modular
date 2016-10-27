@@ -1,5 +1,6 @@
 {
   "name": "@raider/which",
+  "description": "fast cross-platform 'which' utility with API and CLI support.",
   "version": "0.8.3",
   "bin": "bin.js",
   "main": "lib/index.js",
