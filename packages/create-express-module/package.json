@@ -1,6 +1,6 @@
 {
   "name": "create-express-module",
-  "version": "0.8.3",
+  "version": "0.9.0",
   "description": "Unofficial companion to create-react-app.",
   "files": [
     "bin.js",
@@ -16,7 +16,7 @@
     "packages"
   ],
   "dependencies": {
-    "create-package": "^0.8.3"
+    "create-package": "^0.9.0"
   },
   "author": "Cole Chamberlain <cole.chamberlain@gmail.com> (https://github.com/cchamberlain)",
   "bugs": {
