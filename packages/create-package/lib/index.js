@@ -4,7 +4,151 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _regenerator = require('babel-runtime/regenerator');
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _stringify = require('babel-runtime/core-js/json/stringify');
+
+var _stringify2 = _interopRequireDefault(_stringify);
+
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var createModule = function () {
+  var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(templateName, name) {
+    var _ref2 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {},
+        _ref2$verbose = _ref2.verbose,
+        verbose = _ref2$verbose === undefined ? false : _ref2$verbose,
+        _ref2$version = _ref2.version,
+        version = _ref2$version === undefined ? '*' : _ref2$version;
+
+    var root, packageName, templateUrl, res, template, packageJson, packageJsonStr, originalDirectory;
+    return _regenerator2.default.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            root = _path2.default.resolve(name);
+            packageName = _path2.default.basename(root);
+
+
+            checkPackageName(packageName);
+
+            if (_pathExists2.default.sync(name)) {
+              _context.next = 9;
+              break;
+            }
+
+            _context.next = 7;
+            return _fs2.default.mkdir(root);
+
+          case 7:
+            _context.next = 10;
+            break;
+
+          case 9:
+            if (!isSafeToCreateProjectIn(root)) {
+              console.log('The directory ' + name + ' contains file(s) that could conflict. Aborting.');
+              process.exit(1);
+            }
+
+          case 10:
+            templateUrl = 'https://raw.githubusercontent.com/noderaider/scaffold/master/packages/bin-utils/packages/' + templateName + '.json?_c=' + Date.now();
+
+            console.info('fetching template package.json from \'' + templateUrl + '\'');
+            _context.next = 14;
+            return (0, _nodeFetch2.default)(templateUrl);
+
+          case 14:
+            res = _context.sent;
+            _context.next = 17;
+            return res.json();
+
+          case 17:
+            template = _context.sent;
+            packageJson = (0, _extends3.default)({ name: packageName,
+              version: '0.1.0',
+              private: true
+            }, template);
+            packageJsonStr = (0, _stringify2.default)(packageJson, null, 2);
+
+            console.log('Creating a new package in ' + root + '.\n--package.json--\n', packageJsonStr);
+            _context.next = 23;
+            return _fs2.default.writeFile(_path2.default.join(root, 'package.json'), packageJsonStr);
+
+          case 23:
+            originalDirectory = process.cwd();
+
+            process.chdir(root);
+
+            _context.next = 27;
+            return run(root, packageName, templateName, version, verbose, originalDirectory, packageJson);
+
+          case 27:
+            _context.next = 32;
+            break;
+
+          case 29:
+            _context.prev = 29;
+            _context.t0 = _context['catch'](0);
+
+            console.error('ERROR OCCURRED DURING FETCH', _util2.default.inspect(_context.t0));
+
+          case 32:
+          case 'end':
+            return _context.stop();
+        }
+      }
+    }, _callee, this, [[0, 29]]);
+  }));
+
+  return function createModule(_x, _x2, _x3) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+var run = function () {
+  var _ref3 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2(root, packageName, templateName, version, verbose, originalDirectory, packageJson) {
+    var installPackage, utilsName, scriptsPath, init;
+    return _regenerator2.default.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            installPackage = getInstallPackage(version);
+            utilsName = getUtilsName(installPackage);
+
+
+            console.log('Installing packages. This might take a couple minutes...');
+            _context2.next = 5;
+            return (0, _install2.default)({ verbose: verbose });
+
+          case 5:
+
+            checkNodeVersion(utilsName);
+
+            scriptsPath = _path2.default.resolve(process.cwd(), 'node_modules', utilsName, 'scripts', templateName, 'init.js');
+            init = require(scriptsPath).default;
+
+            init(root, packageName, verbose, originalDirectory);
+
+          case 9:
+          case 'end':
+            return _context2.stop();
+        }
+      }
+    }, _callee2, this);
+  }));
+
+  return function run(_x5, _x6, _x7, _x8, _x9, _x10, _x11) {
+    return _ref3.apply(this, arguments);
+  };
+}();
 
 exports.default = createPackage;
 
@@ -71,59 +215,6 @@ function createPackage(packageJSON) {
     }
     return createModule(templateName, name, opts);
   };
-}
-
-function createModule(templateName, name) {
-  var _ref = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {},
-      _ref$verbose = _ref.verbose,
-      verbose = _ref$verbose === undefined ? false : _ref$verbose,
-      _ref$version = _ref.version,
-      version = _ref$version === undefined ? '*' : _ref$version;
-
-  var root = _path2.default.resolve(name);
-  var packageName = _path2.default.basename(root);
-
-  checkPackageName(packageName);
-
-  if (!_pathExists2.default.sync(name)) {
-    _fs2.default.mkdirSync(root);
-  } else if (!isSafeToCreateProjectIn(root)) {
-    console.log('The directory ' + name + ' contains file(s) that could conflict. Aborting.');
-    process.exit(1);
-  }
-  var templateUrl = 'https://raw.githubusercontent.com/noderaider/scaffold/master/packages/bin-utils/packages/' + templateName + '.json?_c=' + Date.now();
-  console.info('fetching template package.json from \'' + templateUrl + '\'');
-  (0, _nodeFetch2.default)(templateUrl).then(function (res) {
-    return res.json();
-  }).then(function (template) {
-    var packageJson = _extends({ name: packageName,
-      version: '0.1.0',
-      private: true
-    }, template);
-    var packageJsonStr = JSON.stringify(packageJson, null, 2);
-    console.log('Creating a new package in ' + root + '.\n--package.json--\n', packageJsonStr);
-    _fs2.default.writeFileSync(_path2.default.join(root, 'package.json'), packageJsonStr);
-    var originalDirectory = process.cwd();
-    process.chdir(root);
-
-    run(root, packageName, templateName, version, verbose, originalDirectory, packageJson);
-  }).catch(function (err) {
-    console.error('ERROR OCCURRED DURING FETCH', _util2.default.inspect(err));
-  });
-}
-
-function run(root, packageName, templateName, version, verbose, originalDirectory, packageJson) {
-  var installPackage = getInstallPackage(version);
-  var utilsName = getUtilsName(installPackage);
-
-  console.log('Installing packages. This might take a couple minutes...');
-  (0, _install2.default)({ verbose: verbose }, opts, function () {
-    checkNodeVersion(utilsName);
-
-    var scriptsPath = _path2.default.resolve(process.cwd(), 'node_modules', utilsName, 'scripts', templateName, 'init.js');
-    var init = require(scriptsPath).default;
-    init(root, packageName, verbose, originalDirectory);
-  });
 }
 
 function getInstallPackage(version) {

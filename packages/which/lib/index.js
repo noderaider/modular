@@ -47,24 +47,36 @@ function api(args, opts, cb) {
 }
 
 function which(name, cb) {
-  if (!name) throw new Error('which requires a name argument');
+  if (cb) {
+    _which(name, cb);
+  } else {
+    return new Promise(function (resolve, reject) {
+      _which(name, function (result) {
+        if (result instanceof Error) return reject(result);
+        resolve(result);
+      });
+    });
+  }
+}
+
+function _which(name, cb) {
   try {
     (function () {
+      if (!name) throw new Error('which requires a name argument');
       var isWin = _os2.default.platform() === 'win32';
       var child = (0, _crossSpawn2.default)(isWin ? 'where' : 'whereis', isWin ? [name] : [name], { encoding: 'utf8' });
       var output = '';
       var filtered = child.stdout.pipe(new FirstLineStream());
       var chunks = [];
       filtered.on('data', function (chunk) {
-        if (chunk) chunks.push(chunk);
+        if (chunk) output += chunk;
       });
       filtered.on('end', function () {
-        var result = chunks.join('');
-        cb(result);
+        return cb(output.length > 0 ? output : false);
       });
     })();
   } catch (err) {
-    cb(false);
+    cb(err);
   }
 }
 
@@ -83,7 +95,7 @@ var FirstLineStream = function (_Transform) {
   _createClass(FirstLineStream, [{
     key: '_transform',
     value: function _transform(chunk, encoding, next) {
-      if (this.isFinished) next();
+      if (this.isFinished) return next();
       var str = chunk.toString('utf8');
       if (str.includes('\n')) {
         var _str$split = str.split('\n'),

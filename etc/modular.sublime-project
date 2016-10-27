@@ -30,6 +30,11 @@
       "folder_exclude_patterns": [ "node_modules" ],
       "name": "@raider/modular",
       "path": "../"
+    },
+    {
+      "folder_exclude_patterns": [ "node_modules" ],
+      "name": "@raider/print-utils",
+      "path": "../../print-utils"
     }
   ]
 }

@@ -1,49 +1,36 @@
 {
   "main": "lib/index.js",
+  "browser": "dist/bundle.js",
+  "files": [
+    "lib",
+    "dist"
+  ],
   "scripts": {
-    "start": "npm run copy && npm run webpack -- --watch",
-    "prewebpack": "rimraf webpack webpack.config.js config.js && babel src/webpack -d webpack && babel src/webpack.config.js -o webpack.config.js && babel src/config.js -o config.js",
-    "webpack": "webpack --config webpack.config.js --progress --profile --colors",
-    "copy": "rimraf lib && ncp src/lib lib && rimraf lib/index.js",
-    "build": "npm run copy && npm run webpack",
+    "start": "run-p \"build:* --silent -- --watch\"",
+    "build": "run-p build:* --silent",
+    "prebuild": "rimraf lib dist",
+    "build:dist": "rollup -c --sourcemap inline --environment NODE_ENV:production",
+    "build:lib": "babel src -d lib --ignore __tests__,__mocks__",
     "preversion": "npm run build"
-  },
-  "dependencies": {
-    "chai": "latest",
-    "json-loader": "^0.5.4",
-    "ncp": "latest",
-    "universal-style-loader": "^0.16.1",
-    "universal-styles": "^0.16.1"
   },
   "devDependencies": {
     "bin-utils": "latest",
     "babel-cli": "latest",
     "babel-core": "latest",
     "babel-eslint": "latest",
-    "babel-loader": "latest",
+    "babel-plugin-external-helpers": "^6.18.0",
     "babel-plugin-transform-runtime": "latest",
     "babel-polyfill": "latest",
-    "babel-preset-latest": "latest",
+    "babel-preset-es2015": "latest",
     "babel-preset-stage-2": "latest",
-    "css-loader": "latest",
+    "babelrc-rollup": "^3.0.0",
     "eslint": "latest",
     "eslint-plugin-babel": "latest",
     "eslint-plugin-react": "latest",
-    "file-loader": "latest",
-    "postcss": "latest",
-    "postcss-browser-reporter": "latest",
-    "postcss-cssnext": "latest",
-    "postcss-font-magician": "^1.4.0",
-    "postcss-import": "latest",
-    "postcss-js": "latest",
-    "postcss-loader": "latest",
-    "postcss-modules": "latest",
-    "postcss-reporter": "latest",
-    "postcss-url": "latest",
-    "precss": "latest",
+    "ncp": "latest",
+    "npm-run-all": "latest",
     "rimraf": "latest",
-    "style-loader": "latest",
-    "url-loader": "latest",
-    "webpack": "latest"
+    "rollup": "latest",
+    "rollup-plugin-babel": "latest"
   }
 }

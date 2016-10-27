@@ -1,89 +1,55 @@
-This project was bootstrapped with [@raider/scaffold](https://github.com/noderaider/scaffold).
+# [@raider/which](https://npmjs.com/package/@raider/which)
 
-Below you will find some information on how to perform common tasks.<br>
-You can find the most recent version of this guide [here](https://github.com/noderaider/scaffold/blob/master/packages/bin-utils/template/create-css-modules/README.md).
+**fast cross-platform 'which' utility with API and CLI support.**
 
-## Updating to New Releases
+[![NPM](https://nodei.co/npm/which.png?stars=true&downloads=true)](https://nodei.co/npm/which/)
 
-Create CSS Module is divided into two packages:
+## CLI
 
-* `create-css-module` is a global command-line utility that you use to create new projects.
-* `bin-utils` is a development dependency in the generated projects (including this one).
+```bash
+npm i -g @raider/which@latest
 
-You almost never need to update `create-css-module` itself: it delegates all the setup to `bin-utils`.
+which node
+# C:\Program Files\nodejs\node.exe
 
-When you run `create-css-module`, it always creates the project with the latest version of `bin-utils` so you’ll get all the new features and improvements in newly created modules automatically.
+which npm
+# C:\Users\raider\local\npm\npm
 
-To update an existing project to a new version of `bin-utils`, [open the changelog](https://github.com/noderaider/scaffold/blob/master/CHANGELOG.md), find the version you’re currently on (check `package.json` in this folder if you’re not sure), and apply the migration instructions for the newer versions.
-
-In most cases bumping the `bin-utils` version in `package.json` and running `npm install` OR `yarn` in this folder should be enough, but it’s good to consult the [changelog](https://github.com/noderaider/scaffold/blob/master/CHANGELOG.md) for potential breaking changes.
-
-I commit to continually publishing so hold on for the ride!
-
-## Sending Feedback
-
-I am always open to [your feedback](https://github.com/noderaider/scaffold/issues).
-
-## Folder Structure
-
-After creation, your project should look like this:
-
-```
-my-module/
-  .gitignore
-  .npmignore
-  README.md
-  node_modules/
-  package.json
-  src/
-    lib/
-      index.js
-      styles.css <= This is where your css module styles go
-    webpack/
-      ...
+which yarn
+# C:\Users\raider\local\npm\yarn
 ```
 
-For the project to build, **these files must exist with exact filenames**:
+## API
 
-* `src/lib/index.js` is the JavaScript entry point.
-* `src/lib/index.css` is the CSS Module.
-* `src/lib/webpack` is the files used to compile the webpack.config. It is included so that you may experiment with webpack options.
+```js
+import which from '@raider/which'
 
-You may create subdirectories inside `src`. For faster rebuilds, only files inside `src` are processed by Webpack.<br>
-You need to **put any JS and CSS files inside `src`**, or Webpack won’t see them.
+which('node', (path) => {
+  if(result)
+    console.log(path)
+})
+```
 
-Only files inside `public` can be used from `public/index.html`.<br>
-Read instructions below for using assets from JavaScript and HTML.
+**omit the callback to return a promise**
 
-You can, however, create more top-level directories.<br>
-They will not be included in the production build so you can use them for things like documentation.
+```js
+which('npm').then((path) => {
+  if(path) {
+    // process
+  }
+})
+```
 
-## Available Scripts
+**async / await**
 
-In the project directory, you can run:
+```js
+(async function () {
+  const path = await which('yarn')
+  if(path) {
+    // process
+  }
+})
+```
 
-### `npm start`
 
-Runs the module in hot rebuild mode. If developing in a linked setting, you should run this prior to your hot reloading command in the downstream app.
-
-### `npm test`
-
-Nothing to test here.
-
-### `npm run build`
-
-Builds the module to the lib folder (for publishing).
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Something Missing?
-
-If you have ideas for more “How To” recipes that should be on this page, [let us know](https://github.com/facebookincubator/create-react-app/issues) or [contribute some!](https://github.com/facebookincubator/create-react-app/edit/master/packages/react-scripts/template/README.md)
+`@raider/which` is tested and made to work cross-platform.

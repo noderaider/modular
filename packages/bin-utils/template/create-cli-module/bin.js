@@ -2,4 +2,4 @@
 
 'use strict';
 
-require('./').default()
+require('./lib/cli').default()

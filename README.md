@@ -1,6 +1,6 @@
 # [@raider/modular](https://npmjs.com/packages/@raider/modular)
 
-**An unofficial companion to [`create-react-app`](https://npmjs.com/packages/create-react-app)**
+**An unofficial companion ecosystem to [`create-react-app`](https://npmjs.com/packages/create-react-app)**
 
 ### What is this?
 
@@ -16,15 +16,14 @@ Often react applications can grow extremely large. `create-react-app` is a very 
 ### PROGRESS
 
 * :heavy_check_mark: `npm i -g create-css-module`
+* :heavy_check_mark: `npm i -g create-umd-module` - *lightweight rollup ES2015 modules*
+* :heavy_check_mark: `npm i -g create-cli-module` - *server side modules meant to be called from CLI or API*
 * :heavy_multiplication_x: `npm i -g create-sass-module`
-* :heavy_multiplication_x: `npm i -g create-umd-module`
 * :heavy_multiplication_x: `npm i -g create-component-module`
 * :heavy_multiplication_x: `npm i -g create-express-module`
 * :heavy_multiplication_x: `npm i -g create-koa-module`
 * :heavy_multiplication_x: `npm i -g create-deploy-module`
-* :heavy_multiplication_x: `npm i -g create-cli-module`
 * :heavy_multiplication_x: `npm i -g create-react-repo`
-
 
 ### Acknowledgements
 

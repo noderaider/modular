@@ -12,9 +12,23 @@ export function api (args, opts, cb) {
 }
 
 export default function which(name, cb) {
-  if(!name)
-    throw new Error('which requires a name argument')
+  if(cb) {
+    _which(name, cb)
+  } else {
+    return new Promise((resolve, reject) => {
+      _which(name, (result) => {
+        if(result instanceof Error)
+          return reject(result)
+        resolve(result)
+      })
+    })
+  }
+}
+
+function _which (name, cb) {
   try {
+    if(!name)
+      throw new Error('which requires a name argument')
     const isWin = os.platform() === 'win32'
     const child = spawn (
       isWin ? 'where' : 'whereis'
@@ -25,14 +39,11 @@ export default function which(name, cb) {
     let filtered = child.stdout.pipe(new FirstLineStream())
     let chunks = []
     filtered.on('data', (chunk) => {
-      if(chunk) chunks.push(chunk)
+      if(chunk) output += chunk
     })
-    filtered.on('end', () => {
-      const result = chunks.join('')
-      cb(result)
-    })
+    filtered.on('end', () => cb(output.length > 0 ? output : false))
   } catch(err) {
-    cb(false)
+    cb(err)
   }
 }
 
@@ -43,7 +54,7 @@ class FirstLineStream extends Transform {
   }
   _transform(chunk, encoding, next) {
     if(this.isFinished)
-      next()
+      return next()
     const str = chunk.toString('utf8')
     if(str.includes('\n')) {
       const [ final ] = str.split('\n')

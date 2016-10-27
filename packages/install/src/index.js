@@ -7,9 +7,18 @@ export function api (args, argv, cb) {
   install (argv, cb)
 }
 
-function installFail(code, ...args) {
-  console.error(`--npm install failed with ${code}--\n${args.join('\n')}`)
-  process.exit(1)
+export default function install(opts, cb) {
+  if(cb) {
+    _install(opts, cb)
+  } else {
+    return new Promise((resolve, reject) => {
+      _install(opts, (result) => {
+        if(result instanceof Error)
+          return reject(result)
+        resolve()
+      })
+    })
+  }
 }
 
 const YARN_ERROR_FALLBACK = `${chalk.bold.red('--yarn error occurred--')} | installing bin-utils with npm (fallback)`
@@ -18,18 +27,14 @@ const NPM_AUTODETECT_MESSAGE = `${chalk.bold.yellow('--yarn not detected--')} | 
 const YARN_INSTALL_MESSAGE = `${chalk.bold.blue('--yarn install--')} | installing...`
 const NPM_INSTALL_MESSAGE = `${chalk.bold.blue('--npm install--')} | installing...`
 
-function fallback(opts, cb) {
-  console.warn('Error during yarn install, falling back to npm...')
-  install({ ...opts, npm: true, npmInstallMessage: YARN_ERROR_FALLBACK }, cb)
-}
-export default function install({ yarn = false
-                                , npm = false
-                                , yarnInstallMessage = YARN_INSTALL_MESSAGE
-                                , npmInstallMessage = NPM_INSTALL_MESSAGE
-                                , yarnAutodetectMessage = YARN_AUTODETECT_MESSAGE
-                                , npmAutodetectMessage = NPM_AUTODETECT_MESSAGE
-                                , verbose = false
-                                } = {}, cb) {
+function _install({ yarn = false
+                  , npm = false
+                  , yarnInstallMessage = YARN_INSTALL_MESSAGE
+                  , npmInstallMessage = NPM_INSTALL_MESSAGE
+                  , yarnAutodetectMessage = YARN_AUTODETECT_MESSAGE
+                  , npmAutodetectMessage = NPM_AUTODETECT_MESSAGE
+                  , verbose = false
+                  } = {}, cb) {
   const opts = { yarn, npm, yarnInstallMessage, npmInstallMessage, yarnAutodetectMessage, npmAutodetectMessage, verbose }
   shouldUseYarn({ yarn, npm }, (useYarn) => {
     try {
@@ -62,4 +67,15 @@ export default function install({ yarn = false
       }
     }
   })
+}
+
+function installFail(code, ...args) {
+  console.error(`--npm install failed with ${code}--\n${args.join('\n')}`)
+  process.exit(1)
+}
+
+
+function fallback(opts, cb) {
+  console.warn('Error during yarn install, falling back to npm...')
+  install({ ...opts, npm: true, npmInstallMessage: YARN_ERROR_FALLBACK }, cb)
 }

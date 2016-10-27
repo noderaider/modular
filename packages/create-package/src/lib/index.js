@@ -41,66 +41,64 @@ export default function createPackage(packageJSON) {
   }
 }
 
-function createModule(templateName, name, { verbose = false, version = '*' } = {}) {
-  var root = path.resolve(name)
-  var packageName = path.basename(root)
+async function createModule(templateName, name, { verbose = false, version = '*' } = {}) {
+  try {
+    const root = path.resolve(name)
+    const packageName = path.basename(root)
 
-  checkPackageName(packageName)
+    checkPackageName(packageName)
 
-  if (!pathExists.sync(name)) {
-    fs.mkdirSync(root)
-  } else if (!isSafeToCreateProjectIn(root)) {
-    console.log(`The directory ${name} contains file(s) that could conflict. Aborting.`)
-    process.exit(1)
+    if (!pathExists.sync(name)) {
+      await fs.mkdir(root)
+    } else if (!isSafeToCreateProjectIn(root)) {
+      console.log(`The directory ${name} contains file(s) that could conflict. Aborting.`)
+      process.exit(1)
+    }
+    const templateUrl = `https://raw.githubusercontent.com/noderaider/scaffold/master/packages/bin-utils/packages/${templateName}.json?_c=${Date.now()}`
+    console.info(`fetching template package.json from '${templateUrl}'`)
+    const res = await fetch(templateUrl)
+    const template = await res.json()
+    const packageJson = (
+      { name: packageName
+      , version: '0.1.0'
+      , private: true
+      , ...template
+      }
+    )
+    const packageJsonStr = JSON.stringify(packageJson, null, 2)
+    console.log(`Creating a new package in ${root}.\n--package.json--\n`, packageJsonStr)
+    await fs.writeFile (
+      path.join(root, 'package.json')
+    , packageJsonStr
+    )
+    var originalDirectory = process.cwd()
+    process.chdir(root)
+
+    await run(root, packageName, templateName, version, verbose, originalDirectory, packageJson)
+  } catch(err) {
+    console.error('ERROR OCCURRED DURING FETCH', util.inspect(err))
   }
-  const templateUrl = `https://raw.githubusercontent.com/noderaider/scaffold/master/packages/bin-utils/packages/${templateName}.json?_c=${Date.now()}`
-  console.info(`fetching template package.json from '${templateUrl}'`)
-  fetch(templateUrl)
-    .then((res) => res.json())
-    .then((template) => {
-      const packageJson = (
-        { name: packageName
-        , version: '0.1.0'
-        , private: true
-        , ...template
-        }
-      )
-      const packageJsonStr = JSON.stringify(packageJson, null, 2)
-      console.log(`Creating a new package in ${root}.\n--package.json--\n`, packageJsonStr)
-      fs.writeFileSync (
-        path.join(root, 'package.json')
-      , packageJsonStr
-      )
-      var originalDirectory = process.cwd()
-      process.chdir(root)
-
-      run(root, packageName, templateName, version, verbose, originalDirectory, packageJson)
-    })
-    .catch((err) => {
-      console.error('ERROR OCCURRED DURING FETCH', util.inspect(err))
-    })
-
 }
 
-function run(root, packageName, templateName, version, verbose, originalDirectory, packageJson) {
+async function run(root, packageName, templateName, version, verbose, originalDirectory, packageJson) {
   const installPackage = getInstallPackage(version)
   const utilsName = getUtilsName(installPackage)
 
   console.log('Installing packages. This might take a couple minutes...')
-  install({ verbose }, opts, () => {
-    checkNodeVersion(utilsName)
+  await install({ verbose })
 
-    const scriptsPath = path.resolve(
-      process.cwd()
-    , 'node_modules'
-    , utilsName
-    , 'scripts'
-    , templateName
-    , 'init.js'
-    )
-    const init = require(scriptsPath).default
-    init(root, packageName, verbose, originalDirectory)
-  })
+  checkNodeVersion(utilsName)
+
+  const scriptsPath = path.resolve(
+    process.cwd()
+  , 'node_modules'
+  , utilsName
+  , 'scripts'
+  , templateName
+  , 'init.js'
+  )
+  const init = require(scriptsPath).default
+  init(root, packageName, verbose, originalDirectory)
 }
 
 function getInstallPackage(version) {

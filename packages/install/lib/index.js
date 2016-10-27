@@ -31,13 +31,17 @@ function api(args, argv, cb) {
   install(argv, cb);
 }
 
-function installFail(code) {
-  for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-    args[_key - 1] = arguments[_key];
+function install(opts, cb) {
+  if (cb) {
+    _install(opts, cb);
+  } else {
+    return new Promise(function (resolve, reject) {
+      _install(opts, function (result) {
+        if (result instanceof Error) return reject(result);
+        resolve();
+      });
+    });
   }
-
-  console.error('--npm install failed with ' + code + '--\n' + args.join('\n'));
-  process.exit(1);
 }
 
 var YARN_ERROR_FALLBACK = _chalk2.default.bold.red('--yarn error occurred--') + ' | installing bin-utils with npm (fallback)';
@@ -46,11 +50,7 @@ var NPM_AUTODETECT_MESSAGE = _chalk2.default.bold.yellow('--yarn not detected--'
 var YARN_INSTALL_MESSAGE = _chalk2.default.bold.blue('--yarn install--') + ' | installing...';
 var NPM_INSTALL_MESSAGE = _chalk2.default.bold.blue('--npm install--') + ' | installing...';
 
-function fallback(opts, cb) {
-  console.warn('Error during yarn install, falling back to npm...');
-  install(_extends({}, opts, { npm: true, npmInstallMessage: YARN_ERROR_FALLBACK }), cb);
-}
-function install() {
+function _install() {
   var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       _ref$yarn = _ref.yarn,
       yarn = _ref$yarn === undefined ? false : _ref$yarn,
@@ -81,8 +81,8 @@ function install() {
       });
 
       (0, _crossSpawn2.default)(executable, args, { stdio: 'inherit' }).on('close', function (code) {
-        for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-          args[_key2 - 1] = arguments[_key2];
+        for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+          args[_key - 1] = arguments[_key];
         }
 
         if (code !== 0) {
@@ -103,4 +103,18 @@ function install() {
       }
     }
   });
+}
+
+function installFail(code) {
+  for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+    args[_key2 - 1] = arguments[_key2];
+  }
+
+  console.error('--npm install failed with ' + code + '--\n' + args.join('\n'));
+  process.exit(1);
+}
+
+function fallback(opts, cb) {
+  console.warn('Error during yarn install, falling back to npm...');
+  install(_extends({}, opts, { npm: true, npmInstallMessage: YARN_ERROR_FALLBACK }), cb);
 }
