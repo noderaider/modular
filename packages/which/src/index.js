@@ -32,16 +32,21 @@ function _which (name, cb) {
     const isWin = os.platform() === 'win32'
     const child = spawn (
       isWin ? 'where' : 'whereis'
-    , isWin ? [ name ] : [ name ]
+    , [ name ]
     , { encoding: 'utf8' }
     )
     let output = ''
-    let filtered = child.stdout.pipe(new FirstLineStream())
+    let pipe = child.stdout.pipe(new FirstLineStream())
     let chunks = []
-    filtered.on('data', (chunk) => {
+    const timeoutMS = 5000
+    const timeoutID = setTimeout(() => cb(new Error(`which timed out after ${timeoutMS}`)), timeoutMS)
+    pipe.on('data', (chunk) => {
       if(chunk) output += chunk
     })
-    filtered.on('end', () => cb(output.length > 0 ? output : false))
+    pipe.on('end', () => {
+      clearTimeout(timeoutID)
+      cb(output.length > 0 ? output : false)
+    })
   } catch(err) {
     cb(err)
   }
