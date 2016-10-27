@@ -1,6 +1,6 @@
 {
   "name": "@raider/which",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "bin": "bin.js",
   "main": "lib/index.js",
   "files": [
