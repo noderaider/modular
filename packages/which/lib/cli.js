@@ -26,7 +26,7 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 function cli() {
   var cb = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function (result) {
     if (result instanceof Error) {
-      console.error('error occurred during execution => ' + _util2.default.inspect(err));
+      console.error('error occurred during execution => ' + _util2.default.inspect(result));
       process.exit(1);
     } else if (result === false || result.length === 0) {
       process.exit(1);

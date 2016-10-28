@@ -21,9 +21,10 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 
 function cli() {
   var cb = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function (err) {
-    if (!err) return;
-    console.error('error occurred during execution => ' + _util2.default.inspect(err));
-    process.exit(1);
+    if (err instanceof Error) {
+      console.error('error occurred during execution => ' + _util2.default.inspect(err));
+      process.exit(1);
+    }
   };
 
   var packageJson = require('../package.json');
