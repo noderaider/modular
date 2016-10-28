@@ -32,6 +32,8 @@
     "rimraf": "latest",
     "rollup": "latest",
     "rollup-plugin-babel": "latest",
+    "rollup-plugin-commonjs": "latest",
+    "rollup-plugin-node-resolve": "latest",
     "rollup-watch": "latest"
   }
 }
