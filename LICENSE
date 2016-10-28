@@ -30,6 +30,6 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-NOTE: noderaider/scaffold is not affiliated with create-react-app or Facebook
+NOTE: noderaider/modular is not affiliated with create-react-app or Facebook
       but its architecture is heavily influenced and in some places pulled from
       create-react-app.

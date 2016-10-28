@@ -1,6 +1,6 @@
 # create-koa-module
 
-**Unofficial counterpart to create-react-app to allow quick scaffolding of CSS module packages.**
+**Unofficial counterpart to create-react-app to allow quick modularing of CSS module packages.**
 
 [![NPM](https://nodei.co/npm/create-koa-module.png?stars=true&downloads=true)](https://nodei.co/npm/create-koa-module/)
 

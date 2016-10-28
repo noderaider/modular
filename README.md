@@ -36,7 +36,7 @@ Often react applications can grow extremely large. `create-react-app` is a very 
 - [ ] [`npm i -g create-deploy-module`](https://npmjs.com/package/create-deploy-module) [:scroll:](https://github.com/noderaider/modular/tree/master/packages/create-deploy-module)
   - create a server deployment module.
 - [ ] [`npm i -g create-react-repo`](https://npmjs.com/package/create-react-repo) [:scroll:](https://github.com/noderaider/modular/tree/master/packages/create-react-repo)
-  - create a lerna repo with all scaffolding commands integrated.
+  - create a lerna repo with all modularing commands integrated.
 
 ## Utils
 

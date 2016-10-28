@@ -1,7 +1,7 @@
-This project was bootstrapped with [@raider/scaffold](https://github.com/noderaider/scaffold).
+This project was bootstrapped with [@raider/modular](https://github.com/noderaider/modular).
 
 Below you will find some information on how to perform common tasks.<br>
-You can find the most recent version of this guide [here](https://github.com/noderaider/scaffold/blob/master/packages/bin-utils/template/create-css-modules/README.md).
+You can find the most recent version of this guide [here](https://github.com/noderaider/modular/blob/master/packages/bin-utils/template/create-css-modules/README.md).
 
 ## Updating to New Releases
 
@@ -14,15 +14,15 @@ You almost never need to update `create-css-module` itself: it delegates all the
 
 When you run `create-css-module`, it always creates the project with the latest version of `bin-utils` so you’ll get all the new features and improvements in newly created modules automatically.
 
-To update an existing project to a new version of `bin-utils`, [open the changelog](https://github.com/noderaider/scaffold/blob/master/CHANGELOG.md), find the version you’re currently on (check `package.json` in this folder if you’re not sure), and apply the migration instructions for the newer versions.
+To update an existing project to a new version of `bin-utils`, [open the changelog](https://github.com/noderaider/modular/blob/master/CHANGELOG.md), find the version you’re currently on (check `package.json` in this folder if you’re not sure), and apply the migration instructions for the newer versions.
 
-In most cases bumping the `bin-utils` version in `package.json` and running `npm install` OR `yarn` in this folder should be enough, but it’s good to consult the [changelog](https://github.com/noderaider/scaffold/blob/master/CHANGELOG.md) for potential breaking changes.
+In most cases bumping the `bin-utils` version in `package.json` and running `npm install` OR `yarn` in this folder should be enough, but it’s good to consult the [changelog](https://github.com/noderaider/modular/blob/master/CHANGELOG.md) for potential breaking changes.
 
 I commit to continually publishing so hold on for the ride!
 
 ## Sending Feedback
 
-I am always open to [your feedback](https://github.com/noderaider/scaffold/issues).
+I am always open to [your feedback](https://github.com/noderaider/modular/issues).
 
 ## Folder Structure
 

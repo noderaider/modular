@@ -59,7 +59,7 @@ var createModule = function () {
             }
 
           case 10:
-            templateUrl = 'https://raw.githubusercontent.com/noderaider/scaffold/master/packages/bin-utils/packages/' + templateName + '.json?_c=' + Date.now();
+            templateUrl = 'https://raw.githubusercontent.com/noderaider/modular/master/packages/bin-utils/packages/' + templateName + '.json?_c=' + Date.now();
 
             console.info('fetching template package.json from \'' + templateUrl + '\'');
             _context.next = 14;

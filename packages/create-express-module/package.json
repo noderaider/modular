@@ -10,7 +10,7 @@
   "main": "index.js",
   "keywords": [
     "create-react-app",
-    "scaffold",
+    "modular",
     "css",
     "modules",
     "packages"
@@ -20,12 +20,12 @@
   },
   "author": "Cole Chamberlain <cole.chamberlain@gmail.com> (https://github.com/cchamberlain)",
   "bugs": {
-    "url": "https://github.com/noderaider/scaffold/issues"
+    "url": "https://github.com/noderaider/modular/issues"
   },
   "homepage": "https://noderaider.js.org/create-express-module",
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/noderaider/scaffold.git"
+    "url": "git+https://github.com/noderaider/modular.git"
   }
 }

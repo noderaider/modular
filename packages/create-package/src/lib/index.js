@@ -54,7 +54,7 @@ async function createModule(templateName, name, { verbose = false, version = '*'
       console.log(`The directory ${name} contains file(s) that could conflict. Aborting.`)
       process.exit(1)
     }
-    const templateUrl = `https://raw.githubusercontent.com/noderaider/scaffold/master/packages/bin-utils/packages/${templateName}.json?_c=${Date.now()}`
+    const templateUrl = `https://raw.githubusercontent.com/noderaider/modular/master/packages/bin-utils/packages/${templateName}.json?_c=${Date.now()}`
     console.info(`fetching template package.json from '${templateUrl}'`)
     const res = await fetch(templateUrl)
     const template = await res.json()
