@@ -6,8 +6,12 @@ export default (
   { entry: 'src/index.js'
   , dest: 'dist/bundle.js'
   , format: 'cjs'
-  , external: [ 'react' ]
-  , plugins:  [ babel()
+  , external: [ 'react', 'react-dom' ]
+  , plugins:  [ babel({ babelrc: false
+                      , exclude: 'node_modules/**'
+                      , presets: [ [ 'es2015', { modules: false } ], 'stage-0', 'react' ]
+                      , plugins: [ 'external-helpers', 'transform-runtime' ]
+                      })
               , nodeResolve({ jsnext: true, main: true })
               , commonjs({ include: 'node_modules/**' })
               ]

@@ -1,4 +1,4 @@
 import ncp from 'ncp'
-import { promisify, syncify } from './utils'
+import { promisify } from './utils'
 
-export default syncify(promisify(ncp))
+export default promisify(ncp)
