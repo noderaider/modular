@@ -1,9 +1,13 @@
 {
   "name": "@raider/modular",
   "version": "0.1.0",
+  "scripts": {
+    "test": "jest"
+  },
   "devDependencies": {
+    "lerna": "2.0.0-beta.30",
     "sinon": "latest",
-    "lerna": "2.0.0-beta.30"
+    "jest": "latest"
   },
   "repository": "noderaider/modular",
   "license": "BSD-3-Clause"

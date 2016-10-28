@@ -1,2 +1,4 @@
-import { promisify } from 'bluebird'
-export default promisify(require('ncp'))
+import ncp from 'ncp'
+import { promisify, syncify } from './utils'
+
+export default syncify(promisify(ncp))

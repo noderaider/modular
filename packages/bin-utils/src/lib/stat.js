@@ -1,2 +1,4 @@
-import { promisify } from 'bluebird'
-export default promisify(require('graceful-fs').stat)
+import fs from 'graceful-fs'
+import { promisify, syncify } from './utils'
+
+export default syncify(promisify(fs.stat), fs.statSync)

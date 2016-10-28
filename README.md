@@ -1,6 +1,9 @@
-# [@raider/modular](https://npmjs.com/packages/@raider/modular)
+# [@raider/modular](https://npmjs.com/package/@raider/modular)
 
-**An unofficial companion ecosystem to [`create-react-app`](https://npmjs.com/packages/create-react-app)**
+**An unofficial companion ecosystem to [`create-react-app`](https://npmjs.com/package/create-react-app)**
+
+[![Build Status](https://travis-ci.org/noderaider/modular.svg?branch=master)](https://travis-ci.org/noderaider/modular)
+[![codecov](https://codecov.io/gh/noderaider/modular/branch/master/graph/badge.svg)](https://codecov.io/gh/noderaider/modular)
 
 ### What is this?
 
@@ -15,15 +18,33 @@ Often react applications can grow extremely large. `create-react-app` is a very 
 
 ### PROGRESS
 
-* :heavy_check_mark: `npm i -g create-css-module`
-* :heavy_check_mark: `npm i -g create-umd-module` - *lightweight rollup ES2015 modules*
-* :heavy_check_mark: `npm i -g create-cli-module` - *server side modules meant to be called from CLI or API*
-* :heavy_multiplication_x: `npm i -g create-sass-module`
-* :heavy_multiplication_x: `npm i -g create-component-module`
-* :heavy_multiplication_x: `npm i -g create-express-module`
-* :heavy_multiplication_x: `npm i -g create-koa-module`
-* :heavy_multiplication_x: `npm i -g create-deploy-module`
-* :heavy_multiplication_x: `npm i -g create-react-repo`
+
+- [x] [`npm i -g create-css-module`](https://npmjs.com/package/create-css-module) [:scroll:](https://github.com/noderaider/modular/tree/master/packages/create-css-module)
+  - create a hot reloading CSS modules library.
+- [x] [`npm i -g create-umd-module`](https://npmjs.com/package/create-umd-module) [:scroll:](https://github.com/noderaider/modular/tree/master/packages/create-umd-module)
+  - create a lightweight rollup ES2015 module.
+- [x] [`npm i -g create-cli-module`](https://npmjs.com/package/create-cli-module)  [:scroll:](https://github.com/noderaider/modular/tree/master/packages/create-cli-module)
+  - create a server module meant to be called from CLI / API.
+- [x] [`npm i -g create-sass-module`](https://npmjs.com/package/create-sass-module) [:scroll:](https://github.com/noderaider/modular/tree/master/packages/create-sass-module)
+  - create a hot reloading sass library.
+- [ ] [`npm i -g create-component-module`](https://npmjs.com/package/create-component-module) [:scroll:](https://github.com/noderaider/modular/tree/master/packages/create-component-module)
+  - create a hot reloading React component module.
+- [ ] [`npm i -g create-express-module`](https://npmjs.com/package/create-express-module) [:scroll:](https://github.com/noderaider/modular/tree/master/packages/create-express-module)
+  - create an express server module.
+- [ ] [`npm i -g create-koa-module`](https://npmjs.com/package/create-koa-module) [:scroll:](https://github.com/noderaider/modular/tree/master/packages/create-koa-module)
+  - create a koa server module.
+- [ ] [`npm i -g create-deploy-module`](https://npmjs.com/package/create-deploy-module) [:scroll:](https://github.com/noderaider/modular/tree/master/packages/create-deploy-module)
+  - create a server deployment module.
+- [ ] [`npm i -g create-react-repo`](https://npmjs.com/package/create-react-repo) [:scroll:](https://github.com/noderaider/modular/tree/master/packages/create-react-repo)
+  - create a lerna repo with all scaffolding commands integrated.
+
+## Utils
+
+- [x] [`npm i -g @raider/install`](https://npmjs.com/package/@raider/install) [:scroll:](https://github.com/noderaider/modular/tree/master/packages/install)
+  - CLI / API component to run NPM install on a package.
+  - Uses yarn if detected and falls back to npm.
+- [x] [`npm i -g @raider/which`](https://npmjs.com/package/@raider/which) [:scroll:](https://github.com/noderaider/modular/tree/master/packages/which)
+  - CLI / API component to run closs-platform `which` command.
 
 ### Acknowledgements
 
