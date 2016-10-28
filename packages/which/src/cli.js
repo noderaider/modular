@@ -5,7 +5,7 @@ import { api } from '../'
 
 export default function cli (cb = (result) => {
   if(result instanceof Error) {
-    console.error(`error occurred during execution => ${util.inspect(err)}`)
+    console.error(`error occurred during execution => ${util.inspect(result)}`)
     process.exit(1)
   } else if(result === false || result.length === 0) {
     process.exit(1)
