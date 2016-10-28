@@ -10,7 +10,8 @@ export default (
   , plugins:  [ babel({ babelrc: false
                       , exclude: 'node_modules/**'
                       , presets: [ [ 'es2015', { modules: false } ], 'stage-0', 'react' ]
-                      , plugins: [ 'external-helpers', 'transform-runtime' ]
+                      , plugins: [ 'transform-runtime' ]
+                      , runtimeHelpers: true
                       })
               , nodeResolve({ jsnext: true, main: true })
               , commonjs({ include: 'node_modules/**' })

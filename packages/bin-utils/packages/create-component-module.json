@@ -18,7 +18,6 @@
     "babel-cli": "latest",
     "babel-core": "latest",
     "babel-eslint": "latest",
-    "babel-plugin-external-helpers": "^6.18.0",
     "babel-plugin-transform-runtime": "latest",
     "babel-polyfill": "latest",
     "babel-preset-es2015": "latest",
