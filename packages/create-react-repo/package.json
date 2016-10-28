@@ -1,6 +1,6 @@
 {
   "name": "create-react-repo",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "Unofficial companion to create-react-app.",
   "files": [
     "index.js"
@@ -9,7 +9,7 @@
     "create-react-repo": "./index.js"
   },
   "dependencies": {
-    "create-package": "^0.10.0"
+    "create-package": "^0.10.1"
   },
   "devDependencies": {
     "babel-cli": "latest",
