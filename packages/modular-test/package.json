@@ -18,7 +18,6 @@
     "babel-preset-stage-2": "latest",
     "bluebird": "latest",
     "bunyan": "latest",
-    "deasync": "latest",
     "graceful-fs": "latest",
     "isomorphic-fetch": "latest",
     "jest": "latest",
