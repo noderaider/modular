@@ -1,0 +1,31 @@
+{
+  "name": "create-proxy-module",
+  "version": "0.12.0",
+  "description": "Unofficial companion to create-react-app.",
+  "files": [
+    "bin.js",
+    "index.js"
+  ],
+  "bin": "bin.js",
+  "main": "index.js",
+  "keywords": [
+    "create-react-app",
+    "modular",
+    "css",
+    "modules",
+    "packages"
+  ],
+  "dependencies": {
+    "create-package": "^0.10.2"
+  },
+  "author": "Cole Chamberlain <cole.chamberlain@gmail.com> (https://github.com/cchamberlain)",
+  "bugs": {
+    "url": "https://github.com/noderaider/modular/issues"
+  },
+  "homepage": "https://noderaider.js.org/create-component-module",
+  "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noderaider/modular.git"
+  }
+}
