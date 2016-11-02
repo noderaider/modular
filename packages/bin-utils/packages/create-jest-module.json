@@ -1,0 +1,26 @@
+{
+  "files": [
+    "__tests__",
+    "__mocks__"
+  ],
+  "scripts": {
+    "start": "jest --watch",
+    "test": "jest"
+  },
+  "dependencies": {
+    "jest": "latest",
+    "rewire": "latest",
+    "bin-utils": "latest",
+    "fs-extra": "latest",
+    "ncp": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "rimraf": "latest"
+  },
+  "devDependencies": {
+    "eslint": "latest",
+    "eslint-plugin-babel": "latest",
+    "eslint-plugin-react": "latest",
+    "npm-run-all": "latest"
+  }
+}

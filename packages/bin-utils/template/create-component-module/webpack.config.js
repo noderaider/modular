@@ -18,6 +18,7 @@ module.exports = {
   },
   module: {
     loaders: [
+      /*
       {
         test: /\.html$/,
         loader: 'file',
@@ -25,7 +26,6 @@ module.exports = {
           name: '[name].[ext]'
         }
       },
-      /*
       {
         test: /\.css$/,
         loaders: [
@@ -63,6 +63,7 @@ module.exports = {
       minimize: true,
       debug: false
     }),
+    /*
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
@@ -72,12 +73,17 @@ module.exports = {
       },
       sourceMap: false
     }),
+    */
     new webpack.DefinePlugin({
       'process.env': { NODE_ENV: JSON.stringify(nodeEnv) }
     })
-  ],
+  ]
+  /*
+  ,
   devServer: {
     contentBase: './src'
     // hot: true
   }
+  */
 };
+

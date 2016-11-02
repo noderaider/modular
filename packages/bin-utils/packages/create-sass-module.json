@@ -39,6 +39,7 @@
     "postcss-loader": "latest",
     "postcss-modules": "latest",
     "postcss-reporter": "latest",
+    "postcss-scss": "latest",
     "postcss-url": "latest",
     "precss": "latest",
     "rimraf": "latest",

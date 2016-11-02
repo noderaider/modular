@@ -1,17 +1,18 @@
 {
   "main": "lib/index.js",
-  "browser": "dist/bundle.js",
   "files": [
     "lib",
     "dist"
   ],
   "scripts": {
-    "start": "run-p \"build:* --silent -- --watch\"",
-    "build": "run-p build:* --silent",
+    "start": "npm run build -- --watch",
     "prebuild": "rimraf lib dist",
     "build:dist": "webpack",
-    "build:lib": "babel src -d lib --ignore __tests__,__mocks__",
-    "preversion": "npm run build"
+    "build": "babel src -d lib --ignore __tests__,__mocks__",
+    "preversion": "npm run build && npm run build:dist"
+  },
+  "dependencies": {
+    "classnames": "^2.2.5"
   },
   "devDependencies": {
     "babel-cli": "latest",
