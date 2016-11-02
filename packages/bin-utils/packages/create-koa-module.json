@@ -12,7 +12,8 @@
     "preversion": "run-s test build"
   },
   "dependencies": {
-    "koa": "next"
+    "koa": "next",
+    "babel-runtime": "latest"
   },
   "devDependencies": {
     "bin-utils": "latest",

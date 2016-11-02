@@ -12,7 +12,8 @@
     "preversion": "npm run build && npm run build:dist"
   },
   "dependencies": {
-    "classnames": "^2.2.5"
+    "classnames": "^2.2.5",
+    "babel-runtime": "latest"
   },
   "devDependencies": {
     "babel-cli": "latest",
@@ -21,9 +22,9 @@
     "babel-loader": "^6.2.7",
     "babel-plugin-transform-runtime": "latest",
     "babel-polyfill": "latest",
-    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-latest": "^6.18.0",
     "babel-preset-react": "^6.16.0",
-    "babel-preset-stage-0": "^6.16.0",
+    "babel-preset-stage-2": "^6.16.0",
     "bin-utils": "latest",
     "eslint": "latest",
     "eslint-plugin-babel": "latest",

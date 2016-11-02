@@ -12,7 +12,8 @@
     "preversion": "run-s test build"
   },
   "dependencies": {
-    "express": "latest"
+    "express": "latest",
+    "babel-runtime": "latest"
   },
   "devDependencies": {
     "bin-utils": "latest",

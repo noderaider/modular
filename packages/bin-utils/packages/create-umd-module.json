@@ -13,7 +13,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "invariant": "^2.2.1"
+    "invariant": "^2.2.1",
+    "babel-runtime": "latest"
   },
   "devDependencies": {
     "babel-cli": "latest",

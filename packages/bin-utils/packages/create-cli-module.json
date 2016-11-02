@@ -15,6 +15,7 @@
   "dependencies": {
     "@raider/which": "latest",
     "@raider/install": "latest",
+    "babel-runtime": "latest",
     "bin-utils": "latest",
     "fs-extra": "latest",
     "ncp": "latest",

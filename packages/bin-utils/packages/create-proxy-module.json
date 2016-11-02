@@ -13,7 +13,8 @@
     "preversion": "run-s test build"
   },
   "dependencies": {
-    "node-http-proxy": "latest"
+    "node-http-proxy": "latest",
+    "babel-runtime": "latest"
   },
   "devDependencies": {
     "bin-utils": "latest",
