@@ -1,11 +1,11 @@
-# create-css-module
+# create-umd-module
 
-**Unofficial counterpart to create-react-app to allow quick modularing of CSS module packages.**
+**Unofficial counterpart to create-react-app to allow quick scaffolding of universal module definition (`UMD`) package with Rollup tree-shaking.**
 
-[![NPM](https://nodei.co/npm/create-css-module.png?stars=true&downloads=true)](https://nodei.co/npm/create-css-module/)
+[![NPM](https://nodei.co/npm/create-umd-module.png?stars=true&downloads=true)](https://nodei.co/npm/create-umd-module/)
 
 ## Install
 
-`npm i -S create-css-module`
+`npm i -S create-umd-module`
 
 ## In active development, review the unit tests until documentation is added.
