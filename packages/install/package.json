@@ -1,7 +1,7 @@
 {
   "name": "@raider/install",
   "description": "cross-platform yarn / npm install with autodetection and CLI / API support.",
-  "version": "0.10.2",
+  "version": "0.11.3",
   "bin": "bin.js",
   "main": "lib/index.js",
   "files": [
@@ -16,7 +16,7 @@
     "preversion": "run-s test build"
   },
   "dependencies": {
-    "@raider/which": "^0.10.2",
+    "@raider/which": "^0.11.3",
     "bin-utils": "latest",
     "fs-extra": "latest",
     "ncp": "latest",
