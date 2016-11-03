@@ -1,6 +1,6 @@
 {
   "name": "bin-utils",
-  "version": "0.13.0",
+  "version": "0.13.1",
   "description": "Collection of promisified bin utilities for creating cli components.",
   "main": "lib/index.js",
   "files": [
@@ -30,13 +30,19 @@
     "testPathIgnorePatterns": [
       "/node_modules/",
       "/template/"
-    ]
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/template/"
+    ],
+    "coverageDirectory": "../../coverage/bin-utils"
   },
   "scripts": {
     "start": "npm run build -- --watch",
     "prebuild": "rimraf lib",
     "build": "babel src -d . --ignore __tests__,__mocks__",
     "test": "jest",
+    "coverage": "jest --coverage",
     "preversion": "run-s test build"
   },
   "dependencies": {

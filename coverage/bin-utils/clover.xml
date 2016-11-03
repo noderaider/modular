@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1478148578801" clover="3.2.0">
+  <project timestamp="1478148578802" name="All files">
+    <metrics statements="14" coveredstatements="10" conditionals="8" coveredconditionals="6" methods="6" coveredmethods="5" elements="28" coveredelements="21" complexity="0" loc="14" ncloc="14" packages="2" files="7" classes="7">
+      <package name="lib">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <file name="mkdirp.js" path="C:\Users\cchamberlain\noderaider\modular\packages\bin-utils\src\lib\mkdirp.js">
+          <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        </file>
+        <file name="ncp.js" path="C:\Users\cchamberlain\noderaider\modular\packages\bin-utils\src\lib\ncp.js">
+          <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        </file>
+        <file name="rimraf.js" path="C:\Users\cchamberlain\noderaider\modular\packages\bin-utils\src\lib\rimraf.js">
+          <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        </file>
+        <file name="stat.js" path="C:\Users\cchamberlain\noderaider\modular\packages\bin-utils\src\lib\stat.js">
+          <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        </file>
+      </package>
+      <package name="lib.utils">
+        <metrics statements="14" coveredstatements="10" conditionals="8" coveredconditionals="6" methods="6" coveredmethods="5"/>
+        <file name="index.js" path="C:\Users\cchamberlain\noderaider\modular\packages\bin-utils\src\lib\utils\index.js">
+          <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        </file>
+        <file name="promisify.js" path="C:\Users\cchamberlain\noderaider\modular\packages\bin-utils\src\lib\utils\promisify.js">
+          <metrics statements="9" coveredstatements="5" conditionals="4" coveredconditionals="2" methods="5" coveredmethods="4"/>
+          <line num="2" count="6" type="stmt"/>
+          <line num="3" count="1" type="stmt"/>
+          <line num="4" count="1" type="stmt"/>
+          <line num="5" count="0" type="stmt"/>
+          <line num="6" count="0" type="stmt"/>
+          <line num="8" count="0" type="stmt"/>
+          <line num="11" count="0" type="stmt"/>
+          <line num="14" count="6" type="stmt"/>
+          <line num="15" count="2" type="stmt"/>
+        </file>
+        <file name="syncify.js" path="C:\Users\cchamberlain\noderaider\modular\packages\bin-utils\src\lib\utils\syncify.js">
+          <metrics statements="5" coveredstatements="5" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+          <line num="2" count="6" type="stmt"/>
+          <line num="3" count="1" type="stmt"/>
+          <line num="4" count="5" type="stmt"/>
+          <line num="5" count="1" type="stmt"/>
+          <line num="6" count="4" type="stmt"/>
+        </file>
+      </package>
+    </metrics>
+  </project>
+</coverage>

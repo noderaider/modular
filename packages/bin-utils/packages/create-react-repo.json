@@ -1,5 +1,5 @@
 {
-  "private": true
+  "private": true,
   "scripts": {
     "start": "lerna run --scope *-app start",
     "start-dev": "lerna exec --ignore *-app -- npm start",
