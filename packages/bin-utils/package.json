@@ -20,6 +20,18 @@
     "mkdirp",
     "ncp"
   ],
+  "jest": {
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "moduleDirectories": [
+      "node_modules"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/template/"
+    ]
+  },
   "scripts": {
     "start": "npm run build -- --watch",
     "prebuild": "rimraf lib",
@@ -33,12 +45,15 @@
     "babel-cli": "latest",
     "babel-preset-latest": "latest",
     "babel-preset-stage-2": "latest",
+    "babel-plugin-transform-runtime": "latest",
+    "babel-runtime": "latest",
     "bluebird": "latest",
     "bunyan": "latest",
     "fs-extra": "latest",
     "graceful-fs": "latest",
     "isomorphic-fetch": "latest",
     "jest": "latest",
+    "jest-cli": "latest",
     "lerna": "prerelease",
     "mkdirp": "latest",
     "ncp": "latest",

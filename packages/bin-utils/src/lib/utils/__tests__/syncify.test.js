@@ -1,9 +1,6 @@
 import syncify from '../syncify'
 
 describe('syncify', () => {
-  it('adds a sync function', () => {
-    expect(typeof syncify(() => {}).sync).toBe('function')
-  })
   it('throws for non function', () => {
     expect(() => typeof syncify({})).toThrow()
   })

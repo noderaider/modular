@@ -2,12 +2,18 @@
   "name": "@raider/modular",
   "version": "0.1.0",
   "scripts": {
-    "test": "jest"
+    "start": "lerna run --scope *-app start",
+    "start-dev": "lerna exec --ignore *-app -- npm start",
+    "test": "lerna run test",
+    "coverage": "lerna run coverage"
   },
   "devDependencies": {
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-2": "^6.18.0",
     "lerna": "2.0.0-beta.30",
-    "sinon": "latest",
-    "jest": "latest"
+    "sinon": "^1.17.6"
   },
   "repository": "noderaider/modular",
   "license": "BSD-3-Clause"

@@ -16,10 +16,11 @@
     "preversion": "run-s test build"
   },
   "dependencies": {
-    "bin-utils": "latest",
+    "bin-utils": "^0.13.0",
     "fs-extra": "latest",
     "ncp": "latest",
-    "rimraf": "latest"
+    "rimraf": "latest",
+    "yargs": "latest"
   },
   "devDependencies": {
     "babel-cli": "latest",

@@ -1,0 +1,18 @@
+{
+  "private": true
+  "scripts": {
+    "start": "lerna run --scope *-app start",
+    "start-dev": "lerna exec --ignore *-app -- npm start",
+    "test": "lerna run test",
+    "coverage": "lerna run coverage"
+  },
+  "devDependencies": {
+    "@raider/modular": "latest",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-2": "^6.18.0",
+    "lerna": "2.0.0-beta.30",
+    "sinon": "^1.17.6"
+  }
+}
