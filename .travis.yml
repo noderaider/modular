@@ -16,7 +16,8 @@ before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -y -qq yarn
 install:
-  - npm install -g codecov
+  - yarn add lerna@prerelease
+  - yarn add codecov
 script:
   - npm run coverage
   - codecov
