@@ -1,0 +1,22 @@
+# dependencies
+node_modules/
+
+# testing
+coverage/
+
+# production
+build/
+staging/
+
+# misc
+.DS_Store
+.env
+*.log
+*.log.*
+*.sublime-workspace
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.*.swp
+.vscode/
