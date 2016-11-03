@@ -1,5 +1,6 @@
 {
   "main": "lib/index.js",
+  "jsnext:main": "dist/bundle.es.js",
   "files": [
     "lib",
     "dist"
