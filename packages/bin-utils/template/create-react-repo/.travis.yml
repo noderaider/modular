@@ -19,7 +19,7 @@ install:
   - yarn global add lerna@prerelease
   - yarn global add codecov@latest
 script:
-  - lerna exec -- yarn
+  - lerna exec --concurrency=1 -- yarn
   - npm run coverage
   - codecov
 after_success:
