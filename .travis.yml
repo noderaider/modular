@@ -17,9 +17,9 @@ before_install:
   - sudo apt-get install -y -qq yarn
 install:
   - yarn global add lerna@prerelease
-  - yarn global add jest
-  - yarn global add codecov
+  - yarn global add codecov@latest
 script:
+  - lerna bootstrap
   - npm run coverage
   - codecov
 after_success:
