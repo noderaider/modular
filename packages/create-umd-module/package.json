@@ -1,6 +1,6 @@
 {
   "name": "create-umd-module",
-  "version": "0.13.2",
+  "version": "0.13.3",
   "description": "Unofficial companion to create-react-app.",
   "files": [
     "bin.js",
@@ -16,7 +16,7 @@
     "packages"
   ],
   "dependencies": {
-    "create-package": "^0.13.2"
+    "create-package": "^0.13.3"
   },
   "author": "Cole Chamberlain <cole.chamberlain@gmail.com> (https://github.com/cchamberlain)",
   "bugs": {
