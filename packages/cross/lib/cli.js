@@ -40,7 +40,7 @@ function cli() {
 
   var packageJson = require('../package.json');
   var name = packageJson.name.includes('/') ? packageJson.name.split('/')[1] : packageJson.name;
-  var argv = _yargs2.default.usage(_chalk2.default.green.bold('Usage: ' + name + ' <executable> [options]')).version(packageJson.version).describe('verbose', 'Print debugging information.').help('h').alias('h', 'help').demand(1).argv;
+  var argv = _yargs2.default.usage(_chalk2.default.green.bold('Usage: ' + name + ' <executable> [options]')).version(packageJson.version).describe('verbose', 'Print debugging information.').help('h').alias('h', 'help').argv;
 
   var _ = argv._,
       opts = _objectWithoutProperties(argv, ['_']);

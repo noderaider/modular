@@ -17,6 +17,9 @@ cross
 ```json
 { "scripts": {
     "prepublish": "cross"
+  },
+  "devDependencies": {
+    "cross": "latest"
   }
 }
 ```
