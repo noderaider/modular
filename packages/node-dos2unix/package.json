@@ -31,14 +31,16 @@
   "dependencies": {
     "async": "~0.2.9",
     "glob": "~3.2.1",
-    "readable-stream": "~1.0.2",
-    "node.extend": "~1.0.5"
+    "node.extend": "~1.0.5",
+    "readable-stream": "~1.0.2"
   },
   "devDependencies": {
-    "grunt-contrib-jshint": "~0.4.3",
-    "grunt-contrib-nodeunit": "~0.1.2",
+    "fs-extra": "~0.6.0",
     "grunt": "~0.4.1",
-    "fs-extra": "~0.6.0"
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-jshint": "~0.4.3",
+    "grunt-contrib-nodeunit": "^1.0.0",
+    "nodeunit": "latest"
   },
   "keywords": [
     "dos2unix",
