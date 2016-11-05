@@ -12,6 +12,15 @@ npm i -g @raider/cross@latest
 cross
 ```
 
+## package.json
+
+```json
+{ "scripts": {
+    "prepublish": "cross"
+  }
+}
+```
+
 <sup>@raider/cross will prompt user for confirmation before doing anything.</sup>
 
 ## API

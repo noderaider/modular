@@ -21,7 +21,6 @@ export default function cli (cb = (result) => {
     .describe('verbose', 'Print debugging information.')
     .help('h')
     .alias('h', 'help')
-    .demand(1)
     .argv
   const { _, ...opts } = argv
   prompt( `${packageJson.name} will upgrade ${chalk.blue(process.cwd())} recursively => proceed? [${chalk.green('y')}${chalk.red('N')}]`
