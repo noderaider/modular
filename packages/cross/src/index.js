@@ -1,17 +1,19 @@
 import yargs from 'yargs'
 import chalk from 'chalk'
 import { dos2unix } from 'dos2unix'
+import invariant from 'invariant'
 
 export function api (args, opts, cb) {
-  return cross(cb)
+  const [ path ] = args
+  return cross(path, cb)
 }
 
-export default function cross(cb) {
+export default function cross(path = process.cwd(), cb) {
   if(cb) {
-    _cross(cb)
+    _cross(path, cb)
   } else {
     return new Promise((resolve, reject) => {
-      _cross((result) => {
+      _cross(path, (result) => {
         if(result instanceof Error)
           return reject(result)
         resolve(result)
@@ -20,13 +22,10 @@ export default function cross(cb) {
   }
 }
 
-function _cross (cb) {
+function _cross (path, cb) {
   try {
-    const D2UConverter = dos2unix()
-    const defaultOptions = {  glob: { cwd: __dirname }, maxConcurrency: 50 }
-
     // Create a new `dos2unix` instance and add important event listeners
-    const d2u = new D2UConverter(defaultOptions)
+    const d2u = new dos2unix({  glob: { cwd: path }, maxConcurrency: 50 })
       .on('error', (err) => {
         cb(err)
       })
@@ -34,7 +33,6 @@ function _cross (cb) {
         console.log(stats)
         cb()
       })
-
     d2u.process([ '**/*' ])
   } catch(err) {
     cb(err)

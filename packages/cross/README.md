@@ -9,7 +9,7 @@
 ```bash
 npm i -g @raider/cross@latest
 
-cross
+cross [repo/path]
 ```
 
 <sup>@raider/cross will prompt user for confirmation before doing anything.</sup>
@@ -31,7 +31,7 @@ cross
 ```js
 import cross from '@raider/cross'
 
-cross((err) => {
+cross(process.cwd(), (err) => {
   if(err)
     console.error(err)
 })
@@ -40,7 +40,7 @@ cross((err) => {
 **omit the callback to return a promise**
 
 ```js
-cross()
+cross(__dirname)
   .then(() => console.log('DONE'))
   .catch((err) => console.error(err))
 ```
@@ -50,7 +50,7 @@ cross()
 ```js
 (async function () {
   try {
-    await cross()
+    await cross(undefined) // defaults to process.cwd()
     console.log('DONE')
   } catch (err) {
     console.error(err)

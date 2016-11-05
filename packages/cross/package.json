@@ -35,6 +35,7 @@
     "eslint": "latest",
     "eslint-plugin-babel": "latest",
     "eslint-plugin-react": "latest",
+    "invariant": "^2.2.1",
     "npm-run-all": "latest",
     "rewire": "latest"
   }

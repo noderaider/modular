@@ -16,17 +16,18 @@ export default function cli (cb = (result) => {
   const packageJson = require('../package.json')
   const name = packageJson.name.includes('/') ? packageJson.name.split('/')[1] : packageJson.name
   const argv = yargs
-    .usage(chalk.green.bold(`Usage: ${name} <executable> [options]`))
+    .usage(chalk.green.bold(`Usage: ${name} [repo/path] [options]`))
     .version(packageJson.version)
     .describe('verbose', 'Print debugging information.')
     .help('h')
     .alias('h', 'help')
     .argv
   const { _, ...opts } = argv
-  prompt( `${packageJson.name} will upgrade ${chalk.blue(process.cwd())} recursively => proceed? [${chalk.green('y')}${chalk.red('N')}]`
+  const [ _path = process.cwd() ] = _
+  prompt( `${packageJson.name} will upgrade ${chalk.cyan(_path)} recursively => proceed? [${chalk.green('y')}${chalk.red('N')}]`
   , (val) => {
       if(val === 'y') {
-        api(_, opts, cb)
+        api([ _path ], opts, cb)
       } else {
         console.log('\u270C')
         process.exit(0)
