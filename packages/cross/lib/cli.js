@@ -3,6 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 exports.default = cli;
 
 var _chalk = require('chalk');
@@ -40,14 +43,18 @@ function cli() {
 
   var packageJson = require('../package.json');
   var name = packageJson.name.includes('/') ? packageJson.name.split('/')[1] : packageJson.name;
-  var argv = _yargs2.default.usage(_chalk2.default.green.bold('Usage: ' + name + ' <executable> [options]')).version(packageJson.version).describe('verbose', 'Print debugging information.').help('h').alias('h', 'help').argv;
+  var argv = _yargs2.default.usage(_chalk2.default.green.bold('Usage: ' + name + ' [repo/path] [options]')).version(packageJson.version).describe('verbose', 'Print debugging information.').help('h').alias('h', 'help').argv;
 
   var _ = argv._,
       opts = _objectWithoutProperties(argv, ['_']);
 
-  (0, _cliPrompt2.default)(packageJson.name + ' will upgrade ' + _chalk2.default.blue(process.cwd()) + ' recursively => proceed? [' + _chalk2.default.green('y') + _chalk2.default.red('N') + ']', function (val) {
+  var _ref = _slicedToArray(_, 1),
+      _ref$ = _ref[0],
+      _path = _ref$ === undefined ? process.cwd() : _ref$;
+
+  (0, _cliPrompt2.default)(packageJson.name + ' will upgrade ' + _chalk2.default.cyan(_path) + ' recursively => proceed? [' + _chalk2.default.green('y') + _chalk2.default.red('N') + ']', function (val) {
     if (val === 'y') {
-      (0, _2.api)(_, opts, cb);
+      (0, _2.api)([_path], opts, cb);
     } else {
       console.log('\u270C');
       process.exit(0);
