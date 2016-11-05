@@ -72,6 +72,8 @@ export default (props) => <FooBar foo="bar" />
   - Uses yarn if detected and falls back to npm.
 - [x] [`npm i -g @raider/which`](https://npmjs.com/package/@raider/which) [:scroll:](https://github.com/noderaider/modular/tree/master/packages/which)
   - CLI / API component to run closs-platform `which` command.
+- [x] [`npm i -g @raider/cross`](https://npmjs.com/package/@raider/cross) [:scroll:](https://github.com/noderaider/modular/tree/master/packages/cross)
+  - CLI / API component to upgrade a project / repos line endings to unix style safely and recursively.
 
 ### Acknowledgements
 
