@@ -12,6 +12,8 @@ npm i -g @raider/cross@latest
 cross
 ```
 
+<sup>@raider/cross will prompt user for confirmation before doing anything.</sup>
+
 ## package.json
 
 ```json
@@ -19,12 +21,10 @@ cross
     "prepublish": "cross"
   },
   "devDependencies": {
-    "cross": "latest"
+    "@raider/cross": "latest"
   }
 }
 ```
-
-<sup>@raider/cross will prompt user for confirmation before doing anything.</sup>
 
 ## API
 
