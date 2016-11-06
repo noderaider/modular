@@ -8,10 +8,11 @@ export default function cli (cb = (result) => {
   if(result instanceof Error) {
     console.error(`error occurred during execution => ${util.inspect(result)}`)
     process.exit(1)
-  } else if(result === false || result.length === 0) {
+  } else if(result === false) {
     process.exit(1)
   }
-  console.log(result)
+  if(result)
+    console.log(result)
 }) {
   const packageJson = require('../package.json')
   const name = packageJson.name.includes('/') ? packageJson.name.split('/')[1] : packageJson.name
