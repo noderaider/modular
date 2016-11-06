@@ -17,7 +17,7 @@ var _chalk = require('chalk');
 
 var _chalk2 = _interopRequireDefault(_chalk);
 
-var _dos2unix = require('dos2unix');
+var _dos2unix = require('@raider/dos2unix');
 
 var _invariant = require('invariant');
 

@@ -1,6 +1,6 @@
 import yargs from 'yargs'
 import chalk from 'chalk'
-import { dos2unix } from 'dos2unix'
+import { dos2unix } from '@raider/dos2unix'
 import invariant from 'invariant'
 
 export function api (args, opts, cb) {
