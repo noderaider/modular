@@ -1,7 +1,7 @@
 {
   "name": "@raider/which",
   "description": "fast cross-platform 'which' utility with API and CLI support.",
-  "version": "0.14.3",
+  "version": "0.14.4",
   "bin": "bin.js",
   "main": "lib/index.js",
   "files": [
@@ -16,7 +16,7 @@
     "preversion": "run-s test build"
   },
   "dependencies": {
-    "bin-utils": "^0.14.3",
+    "bin-utils": "^0.14.4",
     "fs-extra": "latest",
     "ncp": "latest",
     "rimraf": "latest",
