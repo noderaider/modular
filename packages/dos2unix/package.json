@@ -1,0 +1,56 @@
+{
+  "name": "@raider/dos2unix",
+  "description": "A Node.js module to convert text files with DOS line breaks to Unix line breaks, i.e. like using `dos2unix`.",
+  "version": "1.1.1",
+  "homepage": "https://github.com/JamesMGreene/node-dos2unix",
+  "author": {
+    "name": "James M. Greene",
+    "email": "james.m.greene@gmail.com",
+    "url": "http://jamesgreene.net/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/JamesMGreene/node-dos2unix.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JamesMGreene/node-dos2unix/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/JamesMGreene/node-dos2unix/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "index",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt travis --verbose"
+  },
+  "dependencies": {
+    "async": "~0.2.9",
+    "glob": "~3.2.1",
+    "node.extend": "~1.0.5",
+    "readable-stream": "~1.0.2"
+  },
+  "devDependencies": {
+    "fs-extra": "~0.6.0",
+    "grunt": "~0.4.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-jshint": "~0.4.3",
+    "grunt-contrib-nodeunit": "^1.0.0",
+    "nodeunit": "latest"
+  },
+  "keywords": [
+    "dos2unix",
+    "unix2dos",
+    "crlf",
+    "lf",
+    "carriage return",
+    "line feed",
+    "newline",
+    "new line",
+    "line endings"
+  ]
+}
