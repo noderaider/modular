@@ -22,7 +22,7 @@
     "babel-loader": "^6.2.7",
     "babel-plugin-transform-runtime": "latest",
     "babel-polyfill": "latest",
-    "babel-preset-latest": "^6.18.0",
+    "babel-preset-latest": "^6.16.0",
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-2": "^6.16.0",
     "bin-utils": "latest",
