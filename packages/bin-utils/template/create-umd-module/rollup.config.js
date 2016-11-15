@@ -10,7 +10,7 @@ export default (
   , moduleName: require('./package.json').name.split('-').map((x, i) => i === 0 ? x : `${x[0]}${x.slice(1)}`).join('')
   , plugins:  [ babel({ babelrc: false
                       , exclude: 'node_modules/**'
-                      , presets: [ [ 'latest', { modules: false } ], 'stage-2' ]
+                      , presets: [ [ 'es2015', { modules: false } ], 'stage-2' ]
                       , plugins: [ 'transform-runtime' ]
                       , runtimeHelpers: true
                       })
