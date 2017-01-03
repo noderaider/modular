@@ -1,4 +1,4 @@
-# [@raider/modular](https://npmjs.com/package/@raider/modular)
+[![NPM](https://raw.githubusercontent.com/noderaider/modular/master/public/png/modular.png)](https://github.com/noderaider/modular)
 
 **An unofficial companion ecosystem to [`create-react-app`](https://npmjs.com/package/create-react-app)**
 
